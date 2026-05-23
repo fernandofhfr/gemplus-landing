@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GEM+ | Plataforma para organizar grupos de estudos musicais</title>
+  <meta name="description"
+    content="O GEM+ organiza grupos de estudos musicais com acompanhamento de alunos, músicos, instrumentos, métodos, solicitações e evolução do ensino musical.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#212842">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="GEM+ | Plataforma para organizar grupos de estudos musicais">
+  <meta property="og:description"
+    content="Centralize o ensino musical da sua congregação com acompanhamento de alunos, métodos, instrumentos, solicitações e histórico de evolução.">
+  <meta property="og:url" content="https://gemplus.app">
+  <meta property="og:image" content="https://gemplus.app/assets/og-gemplus.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GEM+ | Plataforma para organizar grupos de estudos musicais">
+  <meta name="twitter:description" content="Centralize o ensino musical da sua congregação com acompanhamento de alunos, métodos, instrumentos, solicitações e histórico de evolução.">
+  <meta name="twitter:image" content="https://gemplus.app/assets/og-gemplus.png">
+
+  <link rel="canonical" href="https://gemplus.app">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23212842'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='system-ui' font-weight='900' font-size='16' fill='%23f8f4ed'%3EG%2B%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Tailwind CSS local (gerado via CLI) -->
+  <link rel="stylesheet" href="dist/tailwind.css">
+</head>
+
+<body class="antialiased overflow-x-hidden relative">
+  <div class="fixed inset-0 pointer-events-none z-[9999] opacity-[0.04] dark:hidden"
+    style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E&quot;);">
+  </div>
+
+  <nav data-od-id="nav" class="fixed top-0 left-0 right-0 z-[100] glass">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between gap-4">
+      <a href="#topo" class="flex items-center gap-3 hover:opacity-80 transition-opacity" aria-label="Ir para o topo">
+        <img src="assets/logo.png" alt="Logo GEM+" class="w-10 h-10 md:w-12 md:h-12 object-contain">
+        <span class="text-[26px] font-heading font-black tracking-tighter">GEM+</span>
+      </a>
+
+      <div class="hidden lg:flex items-center gap-6 xl:gap-8 text-[13px] font-bold uppercase tracking-widest text-foreground/80">
+        <a href="#funcionalidades"
+          class="hover:text-primary transition-colors hover-lift inline-block">Funcionalidades</a>
+        <a href="#visao-produto" class="hover:text-primary transition-colors hover-lift inline-block">Produto</a>
+        <a href="#como-funciona" class="hover:text-primary transition-colors hover-lift inline-block">Como funciona</a>
+        <a href="#faq" class="hover:text-primary transition-colors hover-lift inline-block">FAQ</a>
+      </div>
+
+      <div class="flex items-center gap-3 md:gap-4">
+        <button id="mobile-menu-toggle" class="lg:hidden p-2 rounded-full hover:bg-foreground/5 transition-colors focus:ring-2 focus:ring-primary/20 outline-none" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <button id="theme-toggle"
+          class="p-2 rounded-full hover:bg-foreground/5 transition-colors focus:ring-2 focus:ring-primary/20 outline-none"
+          aria-label="Alternar tema">
+          <span id="theme-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2" />
+              <path d="M12 20v2" />
+              <path d="M4.93 4.93l1.41 1.41" />
+              <path d="M17.66 17.66l1.41 1.41" />
+              <path d="M2 12h2" />
+              <path d="M20 12h2" />
+              <path d="M4.93 19.07l1.41-1.41" />
+              <path d="M17.66 6.34l1.41-1.41" />
+            </svg>
+          </span>
+        </button>
+        <a href="#cta"
+          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-heading text-sm font-bold transition-all duration-300 h-11 px-5 md:px-6 bg-primary text-primary-foreground hover:bg-primary/90 active:scale-95 shadow-md hover:shadow-lg">
+          Quero acompanhar
+        </a>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="lg:hidden hidden border-t border-foreground/5 bg-background/95 backdrop-blur-md">
+      <div class="max-w-6xl mx-auto px-6 py-6 flex flex-col gap-4">
+        <a href="#funcionalidades" class="font-heading font-bold text-[15px] uppercase tracking-widest text-foreground/80 hover:text-primary transition-colors py-2">Funcionalidades</a>
+        <a href="#visao-produto" class="font-heading font-bold text-[15px] uppercase tracking-widest text-foreground/80 hover:text-primary transition-colors py-2">Produto</a>
+        <a href="#como-funciona" class="font-heading font-bold text-[15px] uppercase tracking-widest text-foreground/80 hover:text-primary transition-colors py-2">Como funciona</a>
+        <a href="#faq" class="font-heading font-bold text-[15px] uppercase tracking-widest text-foreground/80 hover:text-primary transition-colors py-2">FAQ</a>
+      </div>
+    </div>
+  </nav>
+
+  <main data-od-id="main" id="topo" class="pt-[136px] md:pt-[176px]">
+    <section data-od-id="hero" class="max-w-6xl mx-auto px-6 pb-20 md:pb-32 relative isolate">
+      <div class="hero-reveal space-y-8 max-w-4xl relative z-20">
+        <div
+          class="inline-flex items-center gap-2 rounded-full border border-primary/10 bg-primary/5 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-primary">
+          <span class="w-2 h-2 rounded-full bg-warning animate-pulse"></span>
+          Acesso gratuito
+        </div>
+
+        <h1
+          class="hero-heading text-[36px] sm:text-[52px] md:text-[76px] lg:text-[96px] leading-[0.95] tracking-[-0.04em] font-heading font-black text-foreground">
+          Organize o ensino musical.<br>
+          <span class="opacity-40 italic font-semibold">Acompanhe quem está evoluindo.</span>
+        </h1>
+
+        <p
+          class="text-[18px] md:text-[22px] leading-[1.6] font-body text-foreground/70 max-w-3xl font-semibold mt-6">
+          Acompanhe a jornada do músico desde os primeiros passos, mantendo o histórico de cada aluno sempre atualizado.
+        </p>
+
+        <div class="grid gap-3 text-[14px] md:grid-cols-3 max-w-3xl text-foreground/70 font-semibold">
+          <div class="rounded-2xl border border-primary/10 bg-card/70 px-4 py-4">Acompanhamento de alunos e músicos
+          </div>
+          <div class="rounded-2xl border border-primary/10 bg-card/70 px-4 py-4">Organização por congregação,
+            instrumento e método</div>
+          <div class="rounded-2xl border border-primary/10 bg-card/70 px-4 py-4">Solicitações, aulas e progresso com
+            histórico registrado</div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+          <a href="#cta"
+            class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-heading text-[15px] font-bold transition-all duration-300 h-16 px-10 bg-primary text-primary-foreground hover:bg-primary/90 hover:-translate-y-1 active:scale-95 shadow-2xl">
+            Quero acesso gratuito
+          </a>
+          <a href="#visao-produto"
+            class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-heading text-[15px] font-bold transition-all duration-300 h-16 px-10 border border-primary/20 text-primary hover:bg-primary/5">
+            Ver como funciona
+          </a>
+        </div>
+      </div>
+
+      <div
+        class="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] max-w-[40vw] xl:max-w-none h-[600px] hidden lg:block opacity-[0.40] dark:opacity-[0.40] pointer-events-none -z-10 bg-[radial-gradient(circle,rgba(var(--primary)/0.8)_0%,transparent 70%)] blur-[60px]">
+      </div>
+    </section>
+
+    <section data-od-id="sobre" id="sobre" class="max-w-6xl mx-auto px-6 pb-24 md:pb-32 fade-in-section -mt-8 relative z-20">
+      <div
+        class="glass rounded-[2.25rem] p-8 md:p-12 lg:p-16 shadow-2xl overflow-hidden isolate relative border border-primary/5">
+        <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none z-0"></div>
+
+        <div class="relative z-10">
+          <div class="space-y-8 text-center lg:text-left max-w-4xl mx-auto">
+            <div>
+              <div
+                class="inline-block text-[11px] font-bold font-heading uppercase tracking-[0.2em] text-primary/70 mb-3">
+                Como o GEM+ nasceu
+              </div>
+              <h2 class="text-[32px] md:text-[44px] leading-tight tracking-tight font-heading font-black">Nasceu da
+                rotina que eu vivi de perto.</h2>
+            </div>
+
+            <div class="space-y-6 text-[17px] md:text-[19px] leading-[1.75] text-foreground/80 font-body font-semibold">
+              <p class="text-[20px] md:text-[22px] font-bold text-foreground">Eu não pensei no GEM+ como uma ideia
+                abstrata de produto. Pensei nele depois de anos convivendo com a música, com grupos de estudos,
+                orquestras e com a parte menos visível de tudo isso: organizar pessoas, métodos, instrumentos e
+                acompanhamento sem deixar a rotina virar confusão.</p>
+
+              <p>Em diferentes momentos da minha caminhada, eu vi o mesmo problema se repetir. Muita boa vontade,
+                muita dedicação no ensino musical, mas também fichas incompletas, registros espalhados, dúvidas sobre em
+                que etapa cada aluno estava e dificuldade para manter uma visão clara da evolução de cada pessoa.</p>
+
+              <p>O GEM+ surgiu justamente daí. Eu quis transformar uma dor real em uma solução real, criada por alguém
+                que conhece por dentro os desafios da organização musical e sabe como isso impacta quem ensina, quem
+                acompanha e quem está aprendendo.</p>
+            </div>
+
+            <div class="founder-signature-block">
+              <figure class="founder-portrait-frame group" aria-label="Retrato de Fernando Ribeiro, idealizador do GEM+" tabindex="0">
+                <img
+                  src="assets/fernandocelo.png"
+                  alt="Retrato do idealizador do GEM+, Fernando Ribeiro" class="founder-portrait">
+              </figure>
+
+              <div>
+                <div class="font-heading font-black text-[22px] tracking-tight">Fernando Ribeiro</div>
+                <div class="text-[12px] font-bold uppercase tracking-[0.22em] text-primary/70 mt-1">Idealizador do GEM+</div>
+                <p class="text-[14px] leading-[1.7] text-foreground/68 font-semibold mt-2">Músico e desenvolvedor.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section data-od-id="funcionalidades" id="funcionalidades" class="py-24 md:py-32">
+      <div class="text-center mb-16 md:mb-20 space-y-4 px-6 fade-in-section">
+        <h2 class="text-[36px] md:text-[52px] leading-[1] tracking-tighter font-heading font-black">Organização para a
+          rotina do ensino musical</h2>
+        <p class="text-[18px] md:text-[19px] text-foreground/70 max-w-3xl mx-auto font-semibold">Planejado para
+          congregações, instrutores e responsáveis que precisam acompanhar pessoas, instrumentos, métodos, solicitações
+          e evolução sem depender de controles manuais.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-min max-w-6xl mx-auto px-6 fade-in-section">
+        <div
+          class="md:col-span-2 rounded-[2rem] border border-primary/10 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground p-8 md:p-16 hover-lift relative overflow-hidden isolate shadow-xl flex flex-col justify-center min-h-0 md:min-h-[320px]">
+          <div
+            class="absolute -right-20 -top-20 w-[400px] h-[400px] bg-background/5 rounded-full blur-[80px] mix-blend-overlay">
+          </div>
+
+          <div class="relative z-10">
+            <h3 class="text-[30px] md:text-[44px] tracking-tight font-heading font-bold mb-4 leading-none">Gestão
+              isolada por congregação</h3>
+            <p class="text-[17px] leading-[1.6] text-primary-foreground/80 font-body max-w-2xl">
+              <span class="text-primary-foreground font-bold">Cada igreja organiza sua própria realidade.</span> O GEM+
+              separa alunos, instrumentos, métodos, responsáveis e registros por congregação para evitar mistura de
+              dados e reduzir ruído operacional.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="rounded-[2rem] border border-primary/10 bg-card text-card-foreground p-8 md:p-10 shadow-sm hover-lift flex flex-col justify-center min-h-0 md:min-h-[320px]">
+          <h3 class="text-[26px] tracking-tight font-heading font-bold mb-4 leading-tight">Papéis bem definidos</h3>
+          <p class="text-[16px] leading-[1.6] text-foreground/70 font-semibold">
+            Gestor, instrutor e aluno enxergam apenas o que faz sentido para sua função. Isso ajuda na organização do
+            ensino e reduz erros no acompanhamento.
+          </p>
+        </div>
+
+        <div
+          class="md:col-span-3 rounded-[2rem] border border-primary/10 bg-card text-card-foreground p-8 md:p-14 shadow-sm hover-lift flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-center justify-between">
+          <div class="flex-1 space-y-4">
+            <h3 class="text-[30px] md:text-[32px] font-heading font-bold tracking-tight">Histórico preservado
+            </h3>
+            <p class="text-[17px] md:text-[18px] leading-[1.6] text-foreground/70 max-w-3xl font-semibold">
+              Presenças, andamento do método, solicitações e evolução ficam registrados para consulta posterior. Isso
+              facilita a continuidade do acompanhamento mesmo quando a rotina muda, a aula é revista ou o aluno troca
+              de etapa.
+            </p>
+          </div>
+          <div
+            class="w-full md:w-auto flex flex-col items-start gap-1 p-4 rounded-xl bg-background/50 backdrop-blur-md border border-primary/5">
+            <div class="flex items-center gap-3">
+              <span class="w-3 h-3 rounded-full bg-success flex items-center justify-center relative">
+                <span class="absolute inset-0 rounded-full border border-success animate-ping"></span>
+              </span>
+              <span class="text-[13px] font-bold font-heading uppercase tracking-widest text-foreground">Atualização
+                contínua</span>
+            </div>
+            <span class="text-[11px] opacity-60 normal-case font-semibold pl-6">Acompanhamento sempre visível para a
+              equipe responsável</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section data-od-id="visao-produto" id="visao-produto" class="py-24 max-w-6xl mx-auto px-6 fade-in-section">
+      <div
+        class="rounded-[3rem] bg-gradient-to-r from-card to-background p-8 md:p-20 flex flex-col lg:flex-row items-center gap-12 md:gap-16 shadow-2xl relative border border-primary/5">
+
+        <div class="flex-1 space-y-6 z-10 w-full pt-2 md:pt-0">
+          <div class="text-[11px] font-bold font-heading uppercase tracking-[0.2em] text-primary/70">Visão do produto
+          </div>
+          <h2 class="text-[36px] md:text-[52px] leading-[1.05] tracking-tight font-heading font-black">Clareza sobre o
+            ensino em andamento</h2>
+          <p class="text-[18px] md:text-[19px] text-foreground/70 leading-[1.6] font-semibold max-w-xl">A proposta do
+            GEM+ é transformar registros dispersos em uma visão organizada do processo: quem está estudando, em qual
+            instrumento, com qual método, em que etapa e com quais pendências.</p>
+        </div>
+
+        <div class="w-full lg:w-[460px] z-10 isolate float-slow">
+          <div
+            class="rounded-3xl border border-foreground/5 bg-background shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] p-6 md:p-8 relative overflow-hidden dark:bg-card">
+            <div class="flex items-start justify-between mb-8 md:mb-10 gap-4">
+              <div class="flex items-center gap-4 md:gap-5 min-w-0">
+                <div
+                  class="w-14 h-14 md:w-16 md:h-16 rounded-[1.2rem] bg-primary/5 border border-primary/10 flex items-center justify-center text-primary font-heading font-bold text-xl md:text-2xl shadow-inner shrink-0">
+                  JS</div>
+                <div class="min-w-0">
+                  <h4 class="font-heading font-bold text-[20px] md:text-[22px] tracking-tight leading-none mb-2">João
+                    Silva</h4>
+                  <p class="text-[11px] font-bold text-primary opacity-60 uppercase tracking-[0.2em]">Órgão • Módulo 1
+                  </p>
+                </div>
+              </div>
+              <span
+                class="bg-success/10 text-success text-[10px] font-bold px-3 py-1.5 rounded-full border border-success/20 tracking-widest uppercase shrink-0">Ativo</span>
+            </div>
+
+            <div class="space-y-8">
+              <div>
+                <div class="flex justify-between items-end mb-3 gap-4">
+                  <span
+                    class="text-[10px] font-bold font-heading uppercase tracking-widest text-foreground/70">Progresso do
+                    método</span>
+                  <span class="text-lg font-black font-heading tracking-tighter">35%</span>
+                </div>
+                <div class="h-3 w-full bg-foreground/5 rounded-full overflow-hidden shadow-inner">
+                  <div class="h-full bg-success rounded-full animate-progress" style="width: 35%;"></div>
+                </div>
+              </div>
+
+              <div class="pt-6 border-t border-foreground/5 grid gap-4">
+                <div class="flex justify-between items-center gap-4 text-[15px]">
+                  <span class="opacity-60 font-semibold text-sm">Prática atual</span>
+                  <span class="font-bold font-heading text-[13px] text-right">Lição 7: Escala de Dó</span>
+                </div>
+                <div class="flex justify-between items-center gap-4 text-[15px]">
+                  <span class="opacity-60 font-semibold text-sm">Último encontro</span>
+                  <div class="flex items-center gap-3 shrink-0">
+                    <span class="w-[6px] h-[6px] rounded-full bg-success ring-4 ring-success/20"></span>
+                    <span
+                      class="text-[12px] font-heading uppercase font-bold text-success tracking-widest">Presente</span>
+                  </div>
+                </div>
+                <div class="flex justify-between items-center gap-4 text-[15px]">
+                  <span class="opacity-60 font-semibold text-sm">Solicitação pendente</span>
+                  <span class="font-bold font-heading text-[13px] text-right">Troca de horário</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section data-od-id="modulos" class="py-24 max-w-6xl mx-auto px-6 fade-in-section">
+      <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-start">
+        <div class="space-y-5">
+          <div class="text-[11px] font-bold font-heading uppercase tracking-[0.2em] text-primary/70">Módulos do produto</div>
+          <h2 class="text-[34px] md:text-[46px] leading-[1.05] tracking-tight font-heading font-black">Tudo o que o GEM+
+            reúne em um só lugar</h2>
+          <p class="text-[18px] text-foreground/70 leading-[1.7] font-semibold max-w-2xl">Alunos, instrutores,
+            instrumentos, métodos, presenças, progresso e solicitações — organizados por congregação, acessíveis
+            por perfil.</p>
+        </div>
+
+        <div class="rounded-[2rem] border border-primary/10 bg-card/50 p-6 md:p-8">
+          <div class="rounded-[1.5rem] border border-primary/10 bg-background/70 overflow-hidden">
+            <div class="px-5 py-4 border-b border-primary/8 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-primary/8 border border-primary/10 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="font-heading font-bold text-[14px] tracking-tight">Congregação Central</div>
+                  <div class="text-[11px] text-foreground/70 font-semibold">Painel do gestor</div>
+                </div>
+              </div>
+              <span class="bg-primary/10 text-primary text-[10px] font-bold px-2.5 py-1 rounded-full border border-primary/20 tracking-widest uppercase">Prévia ilustrativa</span>
+            </div>
+
+            <div class="grid grid-cols-3 gap-px bg-primary/5">
+              <div class="stats-cell bg-background/80 px-4 py-4 text-center">
+                <div class="stats-number text-[28px] font-heading font-black tracking-tighter text-foreground">48</div>
+                <div class="stats-label text-[10px] font-bold uppercase tracking-widest text-foreground/70 mt-1">Alunos</div>
+              </div>
+              <div class="stats-cell bg-background/80 px-4 py-4 text-center">
+                <div class="stats-number text-[28px] font-heading font-black tracking-tighter text-foreground">5</div>
+                <div class="stats-label text-[10px] font-bold uppercase tracking-widest text-foreground/70 mt-1">Instrutores</div>
+              </div>
+              <div class="stats-cell bg-background/80 px-4 py-4 text-center">
+                <div class="stats-number text-[28px] font-heading font-black tracking-tighter text-foreground">3</div>
+                <div class="stats-label text-[10px] font-bold uppercase tracking-widest text-foreground/70 mt-1">Famílias</div>
+              </div>
+            </div>
+
+            <div class="px-5 py-4 space-y-3">
+              <div class="text-[11px] font-bold uppercase tracking-widest text-foreground/45 mb-3">Instrumentos por família</div>
+              <div class="space-y-2.5">
+                <div class="flex items-center gap-3">
+                  <span class="text-[13px] font-semibold text-foreground/70 w-20">Órgão</span>
+                  <div class="flex-1 h-2 bg-foreground/5 rounded-full overflow-hidden">
+                    <div class="h-full bg-primary/60 rounded-full" style="width: 46%"></div>
+                  </div>
+                  <span class="text-[12px] font-heading font-bold text-foreground/70 w-8 text-right">22</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-[13px] font-semibold text-foreground/70 w-20">Cordas</span>
+                  <div class="flex-1 h-2 bg-foreground/5 rounded-full overflow-hidden">
+                    <div class="h-full bg-primary/40 rounded-full" style="width: 31%"></div>
+                  </div>
+                  <span class="text-[12px] font-heading font-bold text-foreground/70 w-8 text-right">15</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-[13px] font-semibold text-foreground/70 w-20">Madeiras</span>
+                  <div class="flex-1 h-2 bg-foreground/5 rounded-full overflow-hidden">
+                    <div class="h-full bg-primary/25 rounded-full" style="width: 17%"></div>
+                  </div>
+                  <span class="text-[12px] font-heading font-bold text-foreground/70 w-8 text-right">8</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="px-5 py-3 border-t border-primary/5 flex items-center gap-2 text-foreground/40">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <span class="text-[10px] font-semibold">Demonstração visual</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section data-od-id="como-funciona" id="como-funciona" class="py-24 md:py-32 max-w-6xl mx-auto px-6 overflow-hidden">
+      <div class="mb-20 md:mb-24 fade-in-section">
+        <h2 class="text-[38px] md:text-[60px] leading-[0.95] tracking-[-0.03em] font-heading font-black">Como o GEM+
+          organiza a rotina</h2>
+        <p class="text-[19px] md:text-[20px] text-foreground/60 font-semibold max-w-3xl mt-6 leading-relaxed">Da
+          solicitação inicial ao acompanhamento contínuo do método, a plataforma foi pensada para dar visibilidade ao
+          ensino musical e reduzir perda de informação no caminho.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 fade-in-section lg:items-start">
+        <div class="relative pt-12">
+          <div class="timeline-giant-num">1</div>
+          <div class="relative z-10 border-t-[3px] border-primary pt-8 mt-4">
+            <h3 class="text-[22px] font-heading font-bold mb-4 leading-tight">Solicitação de acesso</h3>
+            <p class="text-[16px] leading-[1.6] text-foreground/70 font-semibold">O registro começa com a solicitação
+              do aluno ou músico para entrar na rotina de estudos da sua congregação.</p>
+          </div>
+        </div>
+
+        <div class="relative pt-12 lg:mt-[5rem]">
+          <div class="timeline-giant-num">2</div>
+          <div class="relative z-10 border-t-[3px] border-primary/60 pt-8 mt-4">
+            <h3 class="text-[22px] font-heading font-bold mb-4 leading-tight">Definição de método e instrumento</h3>
+            <p class="text-[16px] leading-[1.6] text-foreground/70 font-semibold">A equipe responsável organiza o
+              instrumento, o método de ensino e os vínculos necessários para acompanhar aquele aluno.</p>
+          </div>
+        </div>
+
+        <div class="relative pt-12 lg:mt-[10rem]">
+          <div class="timeline-giant-num">3</div>
+          <div class="relative z-10 border-t-[3px] border-primary/30 pt-8 mt-4">
+            <h3 class="text-[22px] font-heading font-bold mb-4 leading-tight">Registro da caminhada</h3>
+            <p class="text-[16px] leading-[1.6] text-foreground/70 font-semibold">Aulas, presenças, andamento das
+              lições e observações deixam de ficar soltos e passam a compor um histórico consultável.</p>
+          </div>
+        </div>
+
+        <div class="relative pt-12 lg:mt-[2rem]">
+          <div class="timeline-giant-num text-success">4</div>
+          <div class="relative z-10 border-t-[4px] border-success pt-8 mt-4">
+            <h3 class="text-[22px] font-heading font-bold mb-4 leading-tight text-success">Acompanhamento com clareza
+            </h3>
+            <p class="text-[16px] leading-[1.6] text-foreground/70 font-semibold">Com a informação centralizada, fica
+              mais fácil enxergar pendências, progresso, continuidade do método e próximos passos do ensino.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section data-od-id="faq" id="faq" class="py-24 max-w-4xl mx-auto px-6 fade-in-section">
+      <div class="mb-16 text-center">
+        <h2 class="text-[32px] md:text-[44px] leading-tight tracking-tight font-heading font-black">Perguntas rápidas
+        </h2>
+      </div>
+
+      <div class="space-y-4">
+        <details class="group border-b border-foreground/10 pb-4">
+          <summary
+            class="flex justify-between items-center gap-6 font-heading font-bold text-[18px] cursor-pointer list-none hover:text-primary transition-colors marker:hidden [&::-webkit-details-marker]:hidden">
+            O GEM+ é um sistema para quem?
+            <span class="transition group-open:rotate-180 opacity-60 shrink-0">
+              <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="1.5" viewBox="0 0 24 24" width="24">
+                <path d="M6 9l6 6 6-6"></path>
+              </svg>
+            </span>
+          </summary>
+          <p class="text-foreground/70 font-semibold mt-4 text-[16px] leading-[1.6]">
+            Para grupos de estudos musicais ligados à rotina da igreja, com uso por gestores, encarregados, instrutores
+            e, quando fizer sentido, também pelos próprios alunos.
+          </p>
+        </details>
+
+        <details class="group border-b border-foreground/10 pb-4">
+          <summary
+            class="flex justify-between items-center gap-6 font-heading font-bold text-[18px] cursor-pointer list-none hover:text-primary transition-colors marker:hidden [&::-webkit-details-marker]:hidden">
+            O sistema substitui planilhas e registros manuais?
+            <span class="transition group-open:rotate-180 opacity-60 shrink-0">
+              <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="1.5" viewBox="0 0 24 24" width="24">
+                <path d="M6 9l6 6 6-6"></path>
+              </svg>
+            </span>
+          </summary>
+          <p class="text-foreground/70 font-semibold mt-4 text-[16px] leading-[1.6]">
+            Essa é a proposta. O GEM+ centraliza dados de alunos, instrumentos, métodos, aulas e evolução para reduzir
+            dispersão de informação e facilitar o acompanhamento contínuo.
+          </p>
+        </details>
+
+        <details class="group border-b border-foreground/10 pb-4">
+          <summary
+            class="flex justify-between items-center gap-6 font-heading font-bold text-[18px] cursor-pointer list-none hover:text-primary transition-colors marker:hidden [&::-webkit-details-marker]:hidden">
+            Os dados ficam separados por congregação?
+            <span class="transition group-open:rotate-180 opacity-60 shrink-0">
+              <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="1.5" viewBox="0 0 24 24" width="24">
+                <path d="M6 9l6 6 6-6"></path>
+              </svg>
+            </span>
+          </summary>
+           <p class="text-foreground/70 font-semibold mt-4 text-[16px] leading-[1.6]">
+            Sim. Cada congregação tem seus próprios alunos, instrumentos, métodos e registros — com dados 100%
+            isolados. O que acontece em uma igreja fica na igreja, sem risco de mistura ou acesso indevido.
+          </p>
+        </details>
+
+        <details class="group border-b border-foreground/10 pb-4">
+          <summary
+            class="flex justify-between items-center gap-6 font-heading font-bold text-[18px] cursor-pointer list-none hover:text-primary transition-colors marker:hidden [&::-webkit-details-marker]:hidden">
+            Como posso saber mais sobre o lançamento?
+            <span class="transition group-open:rotate-180 opacity-60 shrink-0">
+              <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="1.5" viewBox="0 0 24 24" width="24">
+                <path d="M6 9l6 6 6-6"></path>
+              </svg>
+            </span>
+          </summary>
+           <p class="text-foreground/70 font-semibold mt-4 text-[16px] leading-[1.6]">
+            Preencha o formulário de interesse no final desta página com seu perfil e e-mail. Assim que o acesso
+            inicial estiver disponível, você receberá as próximas orientações diretamente.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <section data-od-id="cta" id="cta" class="py-24 px-6 fade-in-section mb-10">
+      <div
+        class="max-w-6xl mx-auto rounded-[3rem] bg-foreground text-background px-6 md:px-8 py-20 md:py-32 text-center shadow-2xl relative overflow-hidden isolate">
+        <div
+          class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(var(--background)/0.05)_0%,transparent_60%)] -z-10">
+        </div>
+
+        <div class="relative z-10 max-w-4xl mx-auto">
+          <h2 class="text-[36px] md:text-[56px] leading-[1.05] font-heading font-black mb-6 tracking-tighter">
+            Quer acompanhar o lançamento?<br><span class="opacity-50 italic">Deixe seu contato na lista de interesse.</span>
+          </h2>
+          <p class="text-[18px] md:text-[20px] opacity-80 font-semibold mb-10 md:mb-12 max-w-2xl mx-auto">
+            Selecione seu perfil e informe seu e-mail. Assim que o acesso inicial do GEM+ estiver disponível,
+            você será um dos primeiros a saber.
+          </p>
+          <div id="form-container" class="max-w-3xl mx-auto">
+            <!-- Quando houver integração real, preencha data-endpoint com a URL do webhook ou endpoint de captura. -->
+            <form id="waitlist-form" class="flex flex-col gap-4" data-endpoint="https://n8n.srv849507.hstgr.cloud/webhook/gemplus-interesse"
+              aria-describedby="form-status form-helper">
+              <div class="flex flex-col sm:flex-row gap-4">
+                <div class="relative w-full sm:w-auto sm:min-w-[240px] lg:min-w-[320px]">
+                  <label for="profile-focus" class="sr-only">Qual é o seu perfil?</label>
+                  <select id="profile-focus" name="profile" required
+                    class="w-full h-16 px-8 appearance-none rounded-full bg-background text-foreground font-body text-[16px] font-semibold border-2 border-transparent focus:border-primary/20 focus:outline-none transition-colors shadow-inner cursor-pointer"
+                    aria-label="Qual é o seu perfil?">
+                    <option value="" disabled selected>Qual é o seu perfil?</option>
+                    <option value="gestor">Sou gestor ou encarregado</option>
+                    <option value="instrutor">Sou instrutor</option>
+                    <option value="aluno">Sou aluno</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-8 flex items-center text-foreground/40">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </div>
+                </div>
+                <label for="waitlist-email" class="sr-only">Seu e-mail</label>
+                <input id="waitlist-email" name="email" type="email" placeholder="Seu melhor e-mail" required
+                  class="flex-1 h-16 px-8 rounded-full bg-background text-foreground font-body text-[16px] font-semibold border-2 border-transparent focus:border-primary/20 focus:outline-none transition-colors placeholder:text-foreground/40 shadow-inner">
+              </div>
+              <button type="submit"
+                class="w-full sm:w-max mx-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-heading text-[13px] sm:text-[16px] uppercase tracking-[0.12em] sm:tracking-widest font-black transition-all duration-300 h-16 px-8 md:px-14 bg-primary text-primary-foreground border border-primary/20 hover:bg-primary/90 hover:-translate-y-1 hover:shadow-lg active:scale-95">
+                Entrar na lista de interesse
+              </button>
+
+              <p id="form-helper" class="text-[13px] leading-[1.7] text-background/70 font-semibold max-w-2xl mx-auto">
+                Esta é uma lista de interesse, não um cadastro definitivo. Seus dados serão usados apenas para
+                comunicar o lançamento do GEM+. Sem spam, sem mensagens automáticas enganosas.
+              </p>
+
+              <div class="flex items-center justify-center gap-2 mt-2 text-background/60 font-semibold text-[12px]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+                <span>Sem mensagens automáticas enganosas. Apenas avisos sobre o lançamento.</span>
+              </div>
+            </form>
+
+            <!-- Preencha data-contact-href e data-contact-label quando houver um canal oficial público. -->
+            <div id="official-contact" class="hidden mt-8 text-background/75" data-contact-href="" data-contact-label="">
+              <p class="text-[13px] uppercase tracking-[0.2em] font-heading font-bold mb-3">Contato oficial</p>
+              <a id="official-contact-link"
+                class="inline-flex items-center justify-center rounded-full border border-background/20 px-6 py-3 text-[15px] font-semibold hover:bg-background/10 transition-colors"></a>
+            </div>
+
+            <div id="form-status" class="hidden mt-8 rounded-[2rem] border border-background/15 bg-background/5 px-6 py-6" role="status" aria-live="polite">
+              <h3 id="form-status-title" class="font-heading font-black text-[22px] text-background mb-2"></h3>
+              <p id="form-status-text" class="font-body text-[15px] md:text-[16px] text-background/80 font-semibold max-w-2xl mx-auto"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer data-od-id="footer" class="bg-primary text-primary-foreground py-16 relative z-10">
+    <div class="max-w-6xl mx-auto px-6">
+      <div
+        class="flex flex-col md:flex-row justify-between items-center gap-8 border-b border-primary-foreground/10 pb-12 mb-10">
+        <a href="#topo" class="flex items-center gap-3 hover:opacity-80 transition-opacity" aria-label="Voltar ao topo">
+          <img src="assets/logo.png" alt="Logo GEM+" class="w-12 h-12 md:w-14 md:h-14 object-contain">
+          <span class="text-[32px] font-heading font-black tracking-tighter">GEM+</span>
+        </a>
+        <div
+          class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[13px] font-bold uppercase tracking-widest opacity-80 text-center">
+          <a href="#funcionalidades" class="hover:opacity-100 hover:text-primary-foreground transition-all">Funcionalidades</a>
+          <a href="#visao-produto" class="hover:opacity-100 hover:text-primary-foreground transition-all">Produto</a>
+          <a href="#como-funciona" class="hover:opacity-100 hover:text-primary-foreground transition-all">Como funciona</a>
+          <a href="#faq" class="hover:opacity-100 hover:text-primary-foreground transition-all">FAQ</a>
+        </div>
+      </div>
+      <div
+        class="flex flex-col md:flex-row justify-between items-center gap-4 text-[12px] font-bold opacity-50 uppercase tracking-[0.2em] font-heading text-center">
+        <span>© 2026 GEM+</span>
+        <span>Organização para quem ensina. Clareza para quem acompanha.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+
+</html>

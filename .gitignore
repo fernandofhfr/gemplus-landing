@@ -1,0 +1,42 @@
+# Dependencias
+node_modules/
+
+# Agentes e config interna
+.agents/
+.od/
+skills-lock.json
+gem-plus-context.md
+
+# Backups
+*.backup.*
+*.pre-tailwind-*
+index.backup.html
+index.pre-tailwind-backup.html
+styles.backup.css
+styles.pre-tailwind-backup.css
+main.backup.js
+
+# Screenshots de QA
+qa-*
+qa-section-screenshots/
+
+# Imagens temporarias
+mphhaxqn-image.png
+.qa-founder-desktop.png
+.qa-founder-mobile.png
+
+# Pacote de publicacao
+publish-gemplus-landing/
+gemplus-landing-public.zip
+
+# Allowlist de arquivos fonte publicos
+assets/*
+!assets/logo.png
+!assets/og-gemplus.png
+assets/og-gemplus.svg
+
+dist/*
+!dist/tailwind.css
+
+src/*
+!src/input.css
