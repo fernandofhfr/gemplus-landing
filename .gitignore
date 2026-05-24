@@ -33,6 +33,7 @@ gemplus-landing-public.zip
 assets/*
 !assets/logo.png
 !assets/og-gemplus.png
+!assets/fernandocelo.png
 assets/og-gemplus.svg
 
 dist/*
