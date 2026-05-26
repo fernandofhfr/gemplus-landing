@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault();
 
       const endpoint = waitlistForm.dataset.endpoint?.trim();
+      const formDisabled = waitlistForm.dataset.formDisabled === 'true';
       const formData = new FormData(waitlistForm);
       const payload = {
         ...Object.fromEntries(formData.entries()),
@@ -50,17 +51,15 @@ document.addEventListener('DOMContentLoaded', () => {
         userAgent: navigator.userAgent,
       };
 
-      if (!endpoint) {
+      if (formDisabled || !endpoint) {
         showFormStatus(
           formStatus,
           formStatusTitle,
           formStatusText,
+          'Formulario temporariamente indisponivel',
           officialContact?.dataset.contactHref
-            ? 'Fale com a equipe do GEM+'
-            : 'Seu interesse foi registrado localmente',
-          officialContact?.dataset.contactHref
-            ? 'Os canais oficiais já estão abertos para atendimento. Use o contato abaixo para saber mais sobre o lançamento.'
-            : 'Esta é uma demonstração do formulário. A integração definitiva será ativada antes do lançamento. Seus dados não foram enviados a nenhum servidor, mas o formato da experiência reflete o fluxo final.',
+            ? 'O envio automatico esta desabilitado no momento. Use o contato oficial abaixo para saber mais sobre o lancamento.'
+            : 'O envio automatico esta temporariamente desabilitado. Nenhum dado foi enviado a servicos externos nesta etapa de teste.',
         );
         return;
       }
