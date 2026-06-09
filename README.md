@@ -13,8 +13,16 @@ Página de apresentação do produto GEM+ — plataforma de gestão musical para
 ├── src/input.css           ← Arquivo de entrada do Tailwind CLI
 ├── package.json            ← Scripts de build e dependência tailwindcss
 ├── package-lock.json       ← Lockfile do npm
-├── assets/logo.png         ← Logo usado na nav e footer
-└── gem-plus-context.md     ← Documento de referência de copy e design system
+├── assets/
+│   ├── logo.webp                    ← Logo (4KB)
+│   ├── logo-fallback.png            ← Logo fallback (50KB)
+│   ├── fernandocelo.webp            ← Foto do fundador (58KB)
+│   ├── fernandocelo-fallback.jpg    ← Fundador fallback (92KB)
+│   ├── metodo-ccp-violino.webp      ← Imagem do produto (47KB)
+│   ├── metodo-ccp-violino-fallback.jpg ← Produto fallback (70KB)
+│   ├── og-gemplus.png               ← Imagem social (515KB)
+│   └── og-gemplus.svg               ← Fonte SVG da imagem social
+└── gem-plus-context.md              ← Documento de referência de copy e design system
 ```
 
 ## Como funciona o Tailwind
@@ -59,7 +67,7 @@ Depois abrir: http://localhost:8080
 
 ## Dependências externas
 
-- **Google Fonts** (Montserrat + Open Sans) — importado via `@import` em `styles.css`. Se não houver internet, o fallback é `font-family: sans-serif`. O layout, cores e funcionalidades continuam intactos.
+- **Google Fonts** (Montserrat + Open Sans) — carregado via `<link>` no `<head>` do `index.html` com `preconnect`. Se não houver internet, o fallback é `font-family: sans-serif`. O layout, cores e funcionalidades continuam intactos.
 
 ## Fases de melhoria realizadas
 

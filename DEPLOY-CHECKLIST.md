@@ -8,7 +8,13 @@ Antes de publicar, verificar cada item abaixo.
 - `styles.css`
 - `main.js`
 - `dist/tailwind.css`
-- `assets/logo.png`
+- `assets/logo.webp` (4KB — versão principal)
+- `assets/logo-fallback.png` (50KB — fallback)
+- `assets/og-gemplus.png` (imagem social 1200×630)
+- `assets/fernandocelo.webp` (58KB — versão principal)
+- `assets/fernandocelo-fallback.jpg` (92KB — fallback)
+- `assets/metodo-ccp-violino.webp` (47KB — versão principal)
+- `assets/metodo-ccp-violino-fallback.jpg` (70KB — fallback)
 
 ## Arquivos que NÃO devem ir para publicação
 
@@ -25,15 +31,22 @@ Antes de publicar, verificar cada item abaixo.
 - `mphhaxqn-image.png`
 - `.agents/` / `.od/` / `skills-lock.json`
 - `gem-plus-context.md` (referência interna)
+- `assets/og-gemplus.svg` (fonte editável, não necessária em produção)
 
 ## Antes de publicar
 
-### Obrigatório
+### Já configurados
 
-- [ ] Ajustar `<link rel="canonical">` para o domínio real (linha ~20 do `index.html`)
-- [ ] Definir o domínio real no `og:url` (linha ~16 do `index.html`)
-- [ ] Criar e substituir a OG image (1200×630px) — atualmente aponta para `assets/logo.png`
-- [ ] Configurar endpoint real no formulário (`data-endpoint` no `#waitlist-form`, linha ~574 do `index.html`)
+- [x] `<link rel="canonical">` = `https://gemplus.app`
+- [x] `og:url` = `https://gemplus.app`
+- [x] OG image = `https://gemplus.app/assets/og-gemplus.png` (1200×630)
+- [x] Twitter Card = `https://gemplus.app/assets/og-gemplus.png`
+- [x] Endpoint do formulário = n8n webhook (`data-endpoint` no `#waitlist-form`)
+- [x] Imagens otimizadas em WebP (logo, fundador, produto)
+- [x] Endpoint n8n verificado ativo (responde 200 com `{"success":true}`)
+
+### Obrigatório (restante)
+
 - [ ] Rodar `npx tailwindcss@3.4.17 -i src/input.css -o dist/tailwind.css --minify` se qualquer classe Tailwind foi alterada
 
 ### Recomendado
@@ -43,4 +56,5 @@ Antes de publicar, verificar cada item abaixo.
 - [ ] Verificar menu mobile (abaixo de 1024px)
 - [ ] Verificar que todos os links âncora funcionam
 - [ ] Verificar scroll reveal (animações ao rolar)
-- [ ] Criar favicon real (atualmente é SVG inline — funcional, mas não cacheado separadamente)
+- [ ] Testar envio do formulário e confirmar recebimento no n8n
+- [ ] Verificar OG image em https://www.opengraph.xyz/url/https://gemplus.app

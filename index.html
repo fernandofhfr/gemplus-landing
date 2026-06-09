@@ -4,21 +4,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GEM+ | Plataforma para organizar grupos de estudos musicais</title>
+  <title>GEMplus | Plataforma para organizar grupos de estudos musicais</title>
   <meta name="description"
-    content="O GEM+ organiza grupos de estudos musicais com acompanhamento de alunos, músicos, instrumentos, métodos, solicitações e evolução do ensino musical.">
+    content="O GEMplus organiza grupos de estudos musicais com acompanhamento de alunos, músicos, instrumentos, métodos, solicitações e evolução do ensino musical.">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#212842">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
-  <meta property="og:title" content="GEM+ | Plataforma para organizar grupos de estudos musicais">
+  <meta property="og:title" content="GEMplus | Plataforma para organizar grupos de estudos musicais">
   <meta property="og:description"
     content="Centralize o ensino musical da sua congregação com acompanhamento de alunos, métodos, instrumentos, solicitações e histórico de evolução.">
   <meta property="og:url" content="https://gemplus.app">
   <meta property="og:image" content="https://gemplus.app/assets/og-gemplus.png">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="GEM+ | Plataforma para organizar grupos de estudos musicais">
+  <meta name="twitter:title" content="GEMplus | Plataforma para organizar grupos de estudos musicais">
   <meta name="twitter:description" content="Centralize o ensino musical da sua congregação com acompanhamento de alunos, métodos, instrumentos, solicitações e histórico de evolução.">
   <meta name="twitter:image" content="https://gemplus.app/assets/og-gemplus.png">
 
@@ -43,8 +43,11 @@
   <nav data-od-id="nav" class="fixed top-0 left-0 right-0 z-[100] glass">
     <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between gap-4">
       <a href="#topo" class="flex items-center gap-3 hover:opacity-80 transition-opacity" aria-label="Ir para o topo">
-        <img src="assets/logo.png" alt="Logo GEM+" class="w-10 h-10 md:w-12 md:h-12 object-contain">
-        <span class="text-[26px] font-heading font-black tracking-tighter">GEM+</span>
+        <picture>
+          <source srcset="assets/logo.webp" type="image/webp">
+          <img src="assets/logo-fallback.png" alt="Logo GEMplus" width="48" height="48" class="w-10 h-10 md:w-12 md:h-12 object-contain">
+        </picture>
+        <span class="text-[26px] font-heading font-black tracking-tighter">GEMplus</span>
       </a>
 
       <div class="hidden lg:flex items-center gap-6 xl:gap-8 text-[13px] font-bold uppercase tracking-widest text-foreground/80">
@@ -103,7 +106,10 @@
       <div class="hero-reveal space-y-8 max-w-4xl relative z-20">
         <div
           class="inline-flex items-center gap-2 rounded-full border border-primary/10 bg-primary/5 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-primary">
-          <span class="w-2 h-2 rounded-full bg-warning animate-pulse"></span>
+          <span class="relative flex w-2.5 h-2.5 items-center justify-center">
+            <span class="absolute inset-0 rounded-full border border-warning animate-ping"></span>
+            <span class="w-2 h-2 rounded-full bg-warning animate-pulse"></span>
+          </span>
           Acesso gratuito
         </div>
 
@@ -154,14 +160,14 @@
             <div>
               <div
                 class="inline-block text-[11px] font-bold font-heading uppercase tracking-[0.2em] text-primary/70 mb-3">
-                Como o GEM+ nasceu
+                Como o GEMplus nasceu
               </div>
               <h2 class="text-[32px] md:text-[44px] leading-tight tracking-tight font-heading font-black">Nasceu da
                 rotina que eu vivi de perto.</h2>
             </div>
 
             <div class="space-y-6 text-[17px] md:text-[19px] leading-[1.75] text-foreground/80 font-body font-semibold">
-              <p class="text-[20px] md:text-[22px] font-bold text-foreground">Eu não pensei no GEM+ como uma ideia
+              <p class="text-[20px] md:text-[22px] font-bold text-foreground">Eu não pensei no GEMplus como uma ideia
                 abstrata de produto. Pensei nele depois de anos convivendo com a música, com grupos de estudos,
                 orquestras e com a parte menos visível de tudo isso: organizar pessoas, métodos, instrumentos e
                 acompanhamento sem deixar a rotina virar confusão.</p>
@@ -170,21 +176,27 @@
                 muita dedicação no ensino musical, mas também fichas incompletas, registros espalhados, dúvidas sobre em
                 que etapa cada aluno estava e dificuldade para manter uma visão clara da evolução de cada pessoa.</p>
 
-              <p>O GEM+ surgiu justamente daí. Eu quis transformar uma dor real em uma solução real, criada por alguém
+              <p>O GEMplus surgiu justamente daí. Eu quis transformar uma dor real em uma solução real, criada por alguém
                 que conhece por dentro os desafios da organização musical e sabe como isso impacta quem ensina, quem
                 acompanha e quem está aprendendo.</p>
             </div>
 
             <div class="founder-signature-block">
-              <figure class="founder-portrait-frame group" aria-label="Retrato de Fernando Ribeiro, idealizador do GEM+" tabindex="0">
-                <img
-                  src="assets/fernandocelo.png"
-                  alt="Retrato do idealizador do GEM+, Fernando Ribeiro" class="founder-portrait">
+              <figure class="founder-portrait-frame group" aria-label="Retrato de Fernando Ribeiro, idealizador do GEMplus" tabindex="0">
+                <picture>
+                  <source srcset="assets/fernandocelo.webp" type="image/webp">
+                  <img
+                    src="assets/fernandocelo-fallback.jpg"
+                    alt="Retrato do idealizador do GEMplus, Fernando Ribeiro"
+                    width="200" height="200"
+                    loading="lazy" decoding="async"
+                    class="founder-portrait">
+                </picture>
               </figure>
 
               <div>
                 <div class="font-heading font-black text-[22px] tracking-tight">Fernando Ribeiro</div>
-                <div class="text-[12px] font-bold uppercase tracking-[0.22em] text-primary/70 mt-1">Idealizador do GEM+</div>
+                <div class="text-[12px] font-bold uppercase tracking-[0.22em] text-primary/70 mt-1">Idealizador do GEMplus</div>
                 <p class="text-[14px] leading-[1.7] text-foreground/68 font-semibold mt-2">Músico e desenvolvedor.</p>
               </div>
             </div>
@@ -213,7 +225,7 @@
             <h3 class="text-[30px] md:text-[44px] tracking-tight font-heading font-bold mb-4 leading-none">Gestão
               isolada por congregação</h3>
             <p class="text-[17px] leading-[1.6] text-primary-foreground/80 font-body max-w-2xl">
-              <span class="text-primary-foreground font-bold">Cada igreja organiza sua própria realidade.</span> O GEM+
+              <span class="text-primary-foreground font-bold">Cada igreja organiza sua própria realidade.</span> O GEMplus
               separa alunos, instrumentos, métodos, responsáveis e registros por congregação para evitar mistura de
               dados e reduzir ruído operacional.
             </p>
@@ -266,7 +278,7 @@
           <h2 class="text-[36px] md:text-[52px] leading-[1.05] tracking-tight font-heading font-black">Clareza sobre o
             ensino em andamento</h2>
           <p class="text-[18px] md:text-[19px] text-foreground/70 leading-[1.6] font-semibold max-w-xl">A proposta do
-            GEM+ é transformar registros dispersos em uma visão organizada do processo: quem está estudando, em qual
+            GEMplus é transformar registros dispersos em uma visão organizada do processo: quem está estudando, em qual
             instrumento, com qual método, em que etapa e com quais pendências.</p>
         </div>
 
@@ -276,12 +288,16 @@
             <div class="flex items-start justify-between mb-8 md:mb-10 gap-4">
               <div class="flex items-center gap-4 md:gap-5 min-w-0">
                 <div
-                  class="w-14 h-14 md:w-16 md:h-16 rounded-[1.2rem] bg-primary/5 border border-primary/10 flex items-center justify-center text-primary font-heading font-bold text-xl md:text-2xl shadow-inner shrink-0">
-                  JS</div>
+                  class="w-16 h-16 md:w-20 md:h-20 rounded-[1.2rem] bg-primary/5 border border-primary/10 overflow-hidden shadow-inner shrink-0">
+                  <picture>
+                    <source srcset="assets/metodo-ccp-violino.webp" type="image/webp">
+                    <img src="assets/metodo-ccp-violino-fallback.jpg" alt="Capa do Método CCP Violino" width="80" height="80" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                  </picture>
+                </div>
                 <div class="min-w-0">
-                  <h4 class="font-heading font-bold text-[20px] md:text-[22px] tracking-tight leading-none mb-2">João
-                    Silva</h4>
-                  <p class="text-[11px] font-bold text-primary opacity-60 uppercase tracking-[0.2em]">Órgão • Módulo 1
+                  <h4 class="font-heading font-bold text-[19px] md:text-[21px] tracking-tight leading-tight mb-2">Método
+                    CCP Violino</h4>
+                  <p class="text-[11px] font-bold text-primary opacity-60 uppercase tracking-[0.2em]">Acompanhamento do método
                   </p>
                 </div>
               </div>
@@ -293,31 +309,30 @@
               <div>
                 <div class="flex justify-between items-end mb-3 gap-4">
                   <span
-                    class="text-[10px] font-bold font-heading uppercase tracking-widest text-foreground/70">Progresso do
-                    método</span>
-                  <span class="text-lg font-black font-heading tracking-tighter">35%</span>
+                    class="text-[10px] font-bold font-heading uppercase tracking-widest text-foreground/70">Progresso</span>
+                  <span class="text-lg font-black font-heading tracking-tighter">23%</span>
                 </div>
                 <div class="h-3 w-full bg-foreground/5 rounded-full overflow-hidden shadow-inner">
-                  <div class="h-full bg-success rounded-full animate-progress" style="width: 35%;"></div>
+                  <div class="h-full bg-success rounded-full animate-progress" style="width: 23%;"></div>
                 </div>
               </div>
 
               <div class="pt-6 border-t border-foreground/5 grid gap-4">
                 <div class="flex justify-between items-center gap-4 text-[15px]">
-                  <span class="opacity-60 font-semibold text-sm">Prática atual</span>
-                  <span class="font-bold font-heading text-[13px] text-right">Lição 7: Escala de Dó</span>
+                  <span class="opacity-60 font-semibold text-sm">Lição atual</span>
+                  <span class="font-bold font-heading text-[13px] text-right">39</span>
                 </div>
                 <div class="flex justify-between items-center gap-4 text-[15px]">
-                  <span class="opacity-60 font-semibold text-sm">Último encontro</span>
+                  <span class="opacity-60 font-semibold text-sm">Faltam passar</span>
+                  <span class="font-bold font-heading text-[13px] text-right">32 e 33</span>
+                </div>
+                <div class="flex justify-between items-center gap-4 text-[15px]">
+                  <span class="opacity-60 font-semibold text-sm">Status</span>
                   <div class="flex items-center gap-3 shrink-0">
                     <span class="w-[6px] h-[6px] rounded-full bg-success ring-4 ring-success/20"></span>
                     <span
-                      class="text-[12px] font-heading uppercase font-bold text-success tracking-widest">Presente</span>
+                      class="text-[12px] font-heading uppercase font-bold text-success tracking-widest">Em andamento</span>
                   </div>
-                </div>
-                <div class="flex justify-between items-center gap-4 text-[15px]">
-                  <span class="opacity-60 font-semibold text-sm">Solicitação pendente</span>
-                  <span class="font-bold font-heading text-[13px] text-right">Troca de horário</span>
                 </div>
               </div>
             </div>
@@ -330,7 +345,7 @@
       <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-start">
         <div class="space-y-5">
           <div class="text-[11px] font-bold font-heading uppercase tracking-[0.2em] text-primary/70">Módulos do produto</div>
-          <h2 class="text-[34px] md:text-[46px] leading-[1.05] tracking-tight font-heading font-black">Tudo o que o GEM+
+          <h2 class="text-[34px] md:text-[46px] leading-[1.05] tracking-tight font-heading font-black">Tudo o que o GEMplus
             reúne em um só lugar</h2>
           <p class="text-[18px] text-foreground/70 leading-[1.7] font-semibold max-w-2xl">Alunos, instrutores,
             instrumentos, métodos, presenças, progresso e solicitações — organizados por congregação, acessíveis
@@ -352,7 +367,7 @@
                   <div class="text-[11px] text-foreground/70 font-semibold">Painel do gestor</div>
                 </div>
               </div>
-              <span class="bg-primary/10 text-primary text-[10px] font-bold px-2.5 py-1 rounded-full border border-primary/20 tracking-widest uppercase">Prévia ilustrativa</span>
+              <span class="bg-primary/10 text-primary text-[10px] font-bold px-2.5 py-1 rounded-full border border-primary/20 tracking-widest uppercase">Distribuicao da orquestra</span>
             </div>
 
             <div class="grid grid-cols-3 gap-px bg-primary/5">
@@ -397,12 +412,6 @@
               </div>
             </div>
 
-            <div class="px-5 py-3 border-t border-primary/5 flex items-center gap-2 text-foreground/40">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-              </svg>
-              <span class="text-[10px] font-semibold">Demonstração visual</span>
-            </div>
           </div>
         </div>
       </div>
@@ -410,7 +419,7 @@
 
     <section data-od-id="como-funciona" id="como-funciona" class="py-24 md:py-32 max-w-6xl mx-auto px-6 overflow-hidden">
       <div class="mb-20 md:mb-24 fade-in-section">
-        <h2 class="text-[38px] md:text-[60px] leading-[0.95] tracking-[-0.03em] font-heading font-black">Como o GEM+
+        <h2 class="text-[38px] md:text-[60px] leading-[0.95] tracking-[-0.03em] font-heading font-black">Como o GEMplus
           organiza a rotina</h2>
         <p class="text-[19px] md:text-[20px] text-foreground/60 font-semibold max-w-3xl mt-6 leading-relaxed">Da
           solicitação inicial ao acompanhamento contínuo do método, a plataforma foi pensada para dar visibilidade ao
@@ -467,7 +476,7 @@
         <details class="group border-b border-foreground/10 pb-4">
           <summary
             class="flex justify-between items-center gap-6 font-heading font-bold text-[18px] cursor-pointer list-none hover:text-primary transition-colors marker:hidden [&::-webkit-details-marker]:hidden">
-            O GEM+ é um sistema para quem?
+            O GEMplus é um sistema para quem?
             <span class="transition group-open:rotate-180 opacity-60 shrink-0">
               <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="1.5" viewBox="0 0 24 24" width="24">
@@ -493,7 +502,7 @@
             </span>
           </summary>
           <p class="text-foreground/70 font-semibold mt-4 text-[16px] leading-[1.6]">
-            Essa é a proposta. O GEM+ centraliza dados de alunos, instrumentos, métodos, aulas e evolução para reduzir
+            Essa é a proposta. O GEMplus centraliza dados de alunos, instrumentos, métodos, aulas e evolução para reduzir
             dispersão de informação e facilitar o acompanhamento contínuo.
           </p>
         </details>
@@ -546,12 +555,12 @@
             Quer acompanhar o lançamento?<br><span class="opacity-50 italic">Deixe seu contato na lista de interesse.</span>
           </h2>
           <p class="text-[18px] md:text-[20px] opacity-80 font-semibold mb-10 md:mb-12 max-w-2xl mx-auto">
-            Selecione seu perfil e informe seu e-mail. Assim que o acesso inicial do GEM+ estiver disponível,
+            Selecione seu perfil e informe seu e-mail. Assim que o acesso inicial do GEMplus estiver disponível,
             você será um dos primeiros a saber.
           </p>
           <div id="form-container" class="max-w-3xl mx-auto">
-            <!-- Formulário temporariamente sem integração externa. -->
-            <form id="waitlist-form" class="flex flex-col gap-4" data-endpoint="" data-form-disabled="true"
+            <!-- Endpoint configurado para n8n webhook -->
+            <form id="waitlist-form" class="flex flex-col gap-4" data-endpoint="https://n8n.srv849507.hstgr.cloud/webhook/gemplus-interesse"
               aria-describedby="form-status form-helper">
               <div class="flex flex-col sm:flex-row gap-4">
                 <div class="relative w-full sm:w-auto sm:min-w-[240px] lg:min-w-[320px]">
@@ -581,7 +590,7 @@
 
               <p id="form-helper" class="text-[13px] leading-[1.7] text-background/70 font-semibold max-w-2xl mx-auto">
                 Esta é uma lista de interesse, não um cadastro definitivo. Seus dados serão usados apenas para
-                comunicar o lançamento do GEM+. Sem spam, sem mensagens automáticas enganosas.
+                comunicar o lançamento do GEMplus. Sem spam, sem mensagens automáticas enganosas.
               </p>
 
               <div class="flex items-center justify-center gap-2 mt-2 text-background/60 font-semibold text-[12px]">
@@ -616,8 +625,11 @@
       <div
         class="flex flex-col md:flex-row justify-between items-center gap-8 border-b border-primary-foreground/10 pb-12 mb-10">
         <a href="#topo" class="flex items-center gap-3 hover:opacity-80 transition-opacity" aria-label="Voltar ao topo">
-          <img src="assets/logo.png" alt="Logo GEM+" class="w-12 h-12 md:w-14 md:h-14 object-contain">
-          <span class="text-[32px] font-heading font-black tracking-tighter">GEM+</span>
+          <picture>
+            <source srcset="assets/logo.webp" type="image/webp">
+            <img src="assets/logo-fallback.png" alt="Logo GEMplus" width="56" height="56" loading="lazy" decoding="async" class="w-12 h-12 md:w-14 md:h-14 object-contain">
+          </picture>
+          <span class="text-[32px] font-heading font-black tracking-tighter">GEMplus</span>
         </a>
         <div
           class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[13px] font-bold uppercase tracking-widest opacity-80 text-center">
@@ -629,7 +641,7 @@
       </div>
       <div
         class="flex flex-col md:flex-row justify-between items-center gap-4 text-[12px] font-bold opacity-50 uppercase tracking-[0.2em] font-heading text-center">
-        <span>© 2026 GEM+</span>
+        <span>© 2026 GEMplus</span>
         <span>Organização para quem ensina. Clareza para quem acompanha.</span>
       </div>
     </div>

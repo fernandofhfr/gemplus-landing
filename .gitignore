@@ -31,9 +31,13 @@ gemplus-landing-public.zip
 
 # Allowlist de arquivos fonte publicos
 assets/*
-!assets/logo.png
+!assets/logo.webp
+!assets/logo-fallback.png
 !assets/og-gemplus.png
-!assets/fernandocelo.png
+!assets/fernandocelo.webp
+!assets/fernandocelo-fallback.jpg
+!assets/metodo-ccp-violino.webp
+!assets/metodo-ccp-violino-fallback.jpg
 assets/og-gemplus.svg
 
 dist/*

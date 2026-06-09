@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
           formStatusTitle,
           formStatusText,
           'Interesse registrado com sucesso',
-          'Recebemos seus dados. Assim que a abertura inicial do GEM+ estiver disponível, entraremos em contato.',
+          'Recebemos seus dados. Assim que a abertura inicial do GEMplus estiver disponível, entraremos em contato.',
         );
       } catch (error) {
         console.error('Form submission failed:', error);
