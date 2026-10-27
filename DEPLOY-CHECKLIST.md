@@ -15,6 +15,7 @@ Antes de publicar, verificar cada item abaixo.
 - `assets/fernandocelo-fallback.jpg` (92KB — fallback)
 - `assets/metodo-ccp-violino.webp` (47KB — versão principal)
 - `assets/metodo-ccp-violino-fallback.jpg` (70KB — fallback)
+- `assets/maestro/` (8 clipes `.mp4` + `maestro-frente.webp`, ~950KB — hero interativo)
 
 ## Arquivos que NÃO devem ir para publicação
 

@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeTheme(root);
   initializeMobileMenu();
   initializeOfficialContact(officialContact, officialContactLink);
+  initializeMaestro();
 
   let startTime = Date.now();
 
@@ -190,4 +191,190 @@ function showFormStatus(container, titleElement, textElement, title, text) {
   titleElement.textContent = title;
   textElement.textContent = text;
   container.classList.remove('hidden');
+}
+
+function initializeMaestro() {
+  const stage = document.querySelector('[data-maestro]');
+
+  if (!stage) {
+    return;
+  }
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const saveData = navigator.connection?.saveData === true;
+
+  // Sem movimento (ou economia de dados): fica a pose frontal estatica.
+  if (reducedMotion || saveData) {
+    return;
+  }
+
+  const clips = {};
+  stage.querySelectorAll('video[data-clip]').forEach((video) => {
+    clips[video.dataset.clip] = video;
+  });
+
+  const touchOnly = window.matchMedia('(hover: none)').matches;
+  const lookAroundOrder = ['ul', 'ur', 'dr', 'dl'];
+
+  let pose = 'c';
+  let target = 'c';
+  let busy = false;
+  let visible = true;
+  let activeClip = null;
+  let targetTimer = null;
+  let side = 'r';
+  let vertical = 'u';
+  let lastInteraction = 0;
+  let lookAroundIndex = 0;
+
+  // A pose e sempre alcancada por um clipe inteiro: do centro para o canto e de volta.
+  function nextClipName() {
+    if (pose === target) {
+      return null;
+    }
+
+    return pose === 'c' ? `c-${target}` : `${pose}-c`;
+  }
+
+  function pump() {
+    if (busy || !visible) {
+      return;
+    }
+
+    const name = nextClipName();
+    const video = name && clips[name];
+
+    if (!video) {
+      return;
+    }
+
+    // Clipe ainda nao baixou: tenta de novo quando estiver pronto.
+    if (video.readyState < 3) {
+      video.addEventListener('canplay', pump, { once: true });
+      return;
+    }
+
+    busy = true;
+    video.currentTime = 0;
+
+    const reveal = () => {
+      if (activeClip && activeClip !== video) {
+        activeClip.classList.remove('is-active');
+        activeClip.pause();
+        activeClip.currentTime = 0;
+      }
+
+      video.classList.add('is-active');
+      stage.classList.add('is-playing');
+      activeClip = video;
+    };
+
+    const played = video.play();
+
+    if (video.requestVideoFrameCallback) {
+      video.requestVideoFrameCallback(reveal);
+    } else {
+      video.addEventListener('playing', reveal, { once: true });
+    }
+
+    video.addEventListener('ended', () => {
+      pose = name.split('-')[1];
+      busy = false;
+      pump();
+    }, { once: true });
+
+    if (played && typeof played.catch === 'function') {
+      // Autoplay bloqueado (ex.: economia de bateria no iOS): mantem a pose estatica.
+      played.catch(() => {
+        busy = false;
+        target = pose;
+      });
+    }
+  }
+
+  function setTarget(next) {
+    if (next === target) {
+      return;
+    }
+
+    window.clearTimeout(targetTimer);
+    targetTimer = window.setTimeout(() => {
+      target = next;
+      pump();
+    }, 150);
+  }
+
+  // Direcao do olhar relativa ao rosto do maestro, nao ao centro da tela.
+  function targetFromPoint(x, y) {
+    const rect = stage.getBoundingClientRect();
+    const dx = x - (rect.left + rect.width * 0.5);
+    const dy = y - (rect.top + rect.height * 0.28);
+
+    const overStage = x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+
+    // Mouse em cima dele ou perto do rosto: olha de frente para quem esta navegando.
+    if (overStage || (Math.abs(dx) < rect.width * 0.35 && Math.abs(dy) < rect.height * 0.12)) {
+      return 'c';
+    }
+
+    if (Math.abs(dx) > rect.width * 0.12) {
+      side = dx < 0 ? 'l' : 'r';
+    }
+
+    if (Math.abs(dy) > rect.height * 0.08) {
+      vertical = dy < 0 ? 'u' : 'd';
+    }
+
+    return `${vertical}${side}`;
+  }
+
+  function onPointer(event) {
+    lastInteraction = Date.now();
+    setTarget(targetFromPoint(event.clientX, event.clientY));
+  }
+
+  window.addEventListener('pointermove', onPointer, { passive: true });
+  window.addEventListener('pointerdown', onPointer, { passive: true });
+  document.documentElement.addEventListener('mouseleave', () => setTarget('c'));
+
+  // Sem mouse: o maestro varre o olhar sozinho, a menos que a pessoa toque na tela.
+  if (touchOnly) {
+    window.setInterval(() => {
+      if (Date.now() - lastInteraction < 8000) {
+        return;
+      }
+
+      lookAroundIndex = (lookAroundIndex + 1) % (lookAroundOrder.length + 1);
+      setTarget(lookAroundOrder[lookAroundIndex] || 'c');
+    }, 4500);
+  }
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((entries) => {
+      visible = entries[0].isIntersecting;
+
+      if (visible) {
+        pump();
+      }
+    }, { threshold: 0.1 }).observe(stage);
+  }
+
+  // Carrega os clipes depois da pagina: primeiro os que saem do centro.
+  function loadClips() {
+    const names = Object.keys(clips).sort((a, b) => Number(b.startsWith('c-')) - Number(a.startsWith('c-')));
+
+    names.forEach((name, index) => {
+      window.setTimeout(() => {
+        const video = clips[name];
+        video.src = video.dataset.src;
+        video.load();
+      }, index * 250);
+    });
+  }
+
+  if (document.readyState === 'complete') {
+    loadClips();
+  } else {
+    window.addEventListener('load', () => window.setTimeout(loadClips, 300), { once: true });
+  }
 }

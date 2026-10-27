@@ -22,6 +22,7 @@ Página de apresentação do produto GEM+ — plataforma de gestão musical para
 │   ├── metodo-ccp-violino-fallback.jpg ← Produto fallback (70KB)
 │   ├── og-gemplus.png               ← Imagem social (515KB)
 │   └── og-gemplus.svg               ← Fonte SVG da imagem social (apenas local, ignorado pelo git)
+│   └── maestro/                     ← Hero interativo: 8 clipes MP4 (~950KB) + pose frontal (poster)
 └── gem-plus-context.md              ← Referência de copy e design system (apenas local, ignorado pelo git)
 ```
 
@@ -79,3 +80,13 @@ Depois abrir: http://localhost:8080
 | Fase 2.1 | Blob hero limitado em 1024–1200px, stats mobile, H1 em 320px |
 | Fase 2.1.1 | Blob hero restaurado em desktop (xl:max-w-none) |
 | Fase 2.2 | Migração de Tailwind CDN para CSS local |
+
+## Maestro interativo (hero)
+
+O maestro do hero acompanha o cursor com o olhar. Cada giro de cabeça é um clipe de 4 s (`assets/maestro/<de>-<para>.mp4`), sempre passando pelo centro: `c-ul`, `c-ur`, `c-dl`, `c-dr` e os de volta `ul-c`, `ur-c`, `dl-c`, `dr-c` (`u`=cima, `d`=baixo, `l`=esquerda, `r`=direita, `c`=frente).
+
+- A lógica fica em `initializeMaestro()` no `main.js`: o clipe sempre termina, so o ultimo destino conta, e a pose final fica parada no ultimo quadro.
+- O fundo branco dos videos some com `mix-blend-mode: multiply` sobre o degradê do palco (`.maestro-stage` no `styles.css`).
+- Sem JS, com `prefers-reduced-motion` ou `saveData`, aparece so a pose frontal (`maestro-frente.webp`).
+- Os clipes foram gerados na Higgsfield (Nano Banana Pro para as poses, Seedance 2.0 Mini 480p com quadro inicial e final para as transições) e recodificados com `ffmpeg -an -c:v libx264 -crf 30`.
+- Ao trocar `styles.css`, `main.js` ou `dist/tailwind.css`, incremente o `?v=` nos links do `index.html` (o nginx faz cache de 1 h).
