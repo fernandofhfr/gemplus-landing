@@ -45,8 +45,3 @@ dist/*
 
 src/*
 !src/input.css
-
-# Clipes do maestro (hero)
-!assets/maestro/
-!assets/maestro/*.mp4
-!assets/maestro/maestro-frente.webp

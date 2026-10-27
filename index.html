@@ -29,10 +29,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=20261107">
+  <link rel="stylesheet" href="styles.css">
 
   <!-- Tailwind CSS local (gerado via CLI) -->
-  <link rel="stylesheet" href="dist/tailwind.css?v=20261107">
+  <link rel="stylesheet" href="dist/tailwind.css">
 </head>
 
 <body class="antialiased overflow-x-hidden relative">
@@ -102,8 +102,8 @@
   </nav>
 
   <main data-od-id="main" id="topo" class="pt-[136px] md:pt-[176px]">
-    <section data-od-id="hero" class="max-w-6xl mx-auto px-6 pb-20 md:pb-32 relative isolate lg:grid lg:grid-cols-[minmax(0,1fr)_340px] xl:grid-cols-[minmax(0,1fr)_420px] lg:gap-12 lg:items-center">
-      <div class="hero-reveal space-y-8 max-w-4xl lg:max-w-none relative z-20">
+    <section data-od-id="hero" class="max-w-6xl mx-auto px-6 pb-20 md:pb-32 relative isolate">
+      <div class="hero-reveal space-y-8 max-w-4xl relative z-20">
         <div
           class="inline-flex items-center gap-2 rounded-full border border-primary/10 bg-primary/5 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-primary">
           <span class="relative flex w-2.5 h-2.5 items-center justify-center">
@@ -114,7 +114,7 @@
         </div>
 
         <h1
-          class="hero-heading text-[36px] sm:text-[52px] md:text-[76px] lg:text-[56px] xl:text-[68px] leading-[0.95] tracking-[-0.04em] font-heading font-black text-foreground">
+          class="hero-heading text-[36px] sm:text-[52px] md:text-[76px] lg:text-[96px] leading-[0.95] tracking-[-0.04em] font-heading font-black text-foreground">
           Organize o ensino musical.<br>
           <span class="opacity-40 italic font-semibold">Acompanhe quem está evoluindo.</span>
         </h1>
@@ -142,27 +142,6 @@
             class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-heading text-[15px] font-bold transition-all duration-300 h-16 px-10 border border-primary/20 text-primary hover:bg-primary/5">
             Ver como funciona
           </a>
-        </div>
-      </div>
-
-      <div class="maestro-wrap relative z-20 mt-14 lg:mt-0 mx-auto w-full max-w-[320px] sm:max-w-[360px] lg:max-w-none">
-        <div class="maestro-stage" data-maestro role="img" aria-label="Maestro que acompanha o movimento do cursor com o olhar">
-          <div class="maestro-layers">
-            <img class="maestro-poster" src="assets/maestro/maestro-frente.webp" alt="" width="560" height="752" fetchpriority="low">
-          <video class="maestro-clip" data-idle="c" data-src="assets/maestro/idle-c.mp4" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
-          <video class="maestro-clip" data-idle="ul" data-src="assets/maestro/idle-ul.mp4" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
-          <video class="maestro-clip" data-idle="ur" data-src="assets/maestro/idle-ur.mp4" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
-          <video class="maestro-clip" data-idle="dl" data-src="assets/maestro/idle-dl.mp4" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
-          <video class="maestro-clip" data-idle="dr" data-src="assets/maestro/idle-dr.mp4" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
-          <video class="maestro-clip" data-clip="c-ul" data-src="assets/maestro/c-ul.mp4" muted playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
-          <video class="maestro-clip" data-clip="c-ur" data-src="assets/maestro/c-ur.mp4" muted playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
-          <video class="maestro-clip" data-clip="c-dl" data-src="assets/maestro/c-dl.mp4" muted playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
-          <video class="maestro-clip" data-clip="c-dr" data-src="assets/maestro/c-dr.mp4" muted playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
-          <video class="maestro-clip" data-clip="ul-c" data-src="assets/maestro/ul-c.mp4" muted playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
-          <video class="maestro-clip" data-clip="ur-c" data-src="assets/maestro/ur-c.mp4" muted playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
-          <video class="maestro-clip" data-clip="dl-c" data-src="assets/maestro/dl-c.mp4" muted playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
-          <video class="maestro-clip" data-clip="dr-c" data-src="assets/maestro/dr-c.mp4" muted playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
-</div>
         </div>
       </div>
 
@@ -672,7 +651,7 @@
     </div>
   </footer>
 
-  <script src="main.js?v=20261107"></script>
+  <script src="main.js"></script>
 </body>
 
 </html>
