@@ -21,8 +21,8 @@ Página de apresentação do produto GEM+ — plataforma de gestão musical para
 │   ├── metodo-ccp-violino.webp      ← Imagem do produto (47KB)
 │   ├── metodo-ccp-violino-fallback.jpg ← Produto fallback (70KB)
 │   ├── og-gemplus.png               ← Imagem social (515KB)
-│   └── og-gemplus.svg               ← Fonte SVG da imagem social
-└── gem-plus-context.md              ← Documento de referência de copy e design system
+│   └── og-gemplus.svg               ← Fonte SVG da imagem social (apenas local, ignorado pelo git)
+└── gem-plus-context.md              ← Referência de copy e design system (apenas local, ignorado pelo git)
 ```
 
 ## Como funciona o Tailwind

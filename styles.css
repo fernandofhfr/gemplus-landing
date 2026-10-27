@@ -326,3 +326,14 @@ code {
     filter: none !important;
   }
 }
+
+/* Honeypot anti-spam: invisivel para pessoas, visivel para bots */
+.honeypot-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+}

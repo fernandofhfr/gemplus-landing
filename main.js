@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeMobileMenu();
   initializeOfficialContact(officialContact, officialContactLink);
 
+  let startTime = Date.now();
+
   if (themeToggle) {
     themeToggle.addEventListener('click', () => {
       const isDark = root.classList.toggle('dark');
@@ -43,8 +45,28 @@ document.addEventListener('DOMContentLoaded', () => {
       const endpoint = waitlistForm.dataset.endpoint?.trim();
       const formDisabled = waitlistForm.dataset.formDisabled === 'true';
       const formData = new FormData(waitlistForm);
+      const website = String(formData.get('website') || '').trim();
+      const tempoPreenchimentoMs = Date.now() - startTime;
+
+      // Honeypot check - aborta silenciosamente mostrando sucesso se for bot
+      if (website) {
+        console.warn('Honeypot preenchido. Abortando envio.');
+        waitlistForm.reset();
+        startTime = Date.now();
+        showFormStatus(
+          formStatus,
+          formStatusTitle,
+          formStatusText,
+          'Interesse registrado com sucesso',
+          'Recebemos seus dados. Assim que a abertura inicial do GEMplus estiver disponível, entraremos em contato.',
+        );
+        return;
+      }
+
       const payload = {
         ...Object.fromEntries(formData.entries()),
+        website: '',
+        tempoPreenchimentoMs,
         timestamp: new Date().toISOString(),
         source: 'landing-gemplus',
         page: window.location.href,
@@ -56,10 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
           formStatus,
           formStatusTitle,
           formStatusText,
-          'Formulario temporariamente indisponivel',
+          'Formulário temporariamente indisponível',
           officialContact?.dataset.contactHref
-            ? 'O envio automatico esta desabilitado no momento. Use o contato oficial abaixo para saber mais sobre o lancamento.'
-            : 'O envio automatico esta temporariamente desabilitado. Nenhum dado foi enviado a servicos externos nesta etapa de teste.',
+            ? 'O envio automático está desabilitado no momento. Use o contato oficial abaixo para saber mais sobre o lançamento.'
+            : 'O envio automático está temporariamente desabilitado. Nenhum dado foi enviado a serviços externos nesta etapa de teste.',
         );
         return;
       }
@@ -78,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         waitlistForm.reset();
+        startTime = Date.now();
         showFormStatus(
           formStatus,
           formStatusTitle,

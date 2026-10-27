@@ -562,6 +562,10 @@
             <!-- Endpoint configurado para n8n webhook -->
             <form id="waitlist-form" class="flex flex-col gap-4" data-endpoint="https://n8n.srv849507.hstgr.cloud/webhook/gemplus-interesse"
               aria-describedby="form-status form-helper">
+              <!-- Honeypot anti-spam invisível -->
+              <div class="honeypot-field" aria-hidden="true">
+                <label>Leave this field empty: <input name="website" tabindex="-1" autocomplete="off" /></label>
+              </div>
               <div class="flex flex-col sm:flex-row gap-4">
                 <div class="relative w-full sm:w-auto sm:min-w-[240px] lg:min-w-[320px]">
                   <label for="profile-focus" class="sr-only">Qual é o seu perfil?</label>
