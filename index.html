@@ -29,10 +29,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=20261030">
+  <link rel="stylesheet" href="styles.css?v=20261103">
 
   <!-- Tailwind CSS local (gerado via CLI) -->
-  <link rel="stylesheet" href="dist/tailwind.css?v=20261030">
+  <link rel="stylesheet" href="dist/tailwind.css?v=20261103">
 </head>
 
 <body class="antialiased overflow-x-hidden relative">
@@ -149,6 +149,11 @@
         <div class="maestro-stage" data-maestro role="img" aria-label="Maestro que acompanha o movimento do cursor com o olhar">
           <div class="maestro-layers">
             <img class="maestro-poster" src="assets/maestro/maestro-frente.webp" alt="" width="560" height="752" fetchpriority="low">
+          <video class="maestro-clip" data-idle="c" data-src="assets/maestro/idle-c.mp4" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
+          <video class="maestro-clip" data-idle="ul" data-src="assets/maestro/idle-ul.mp4" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
+          <video class="maestro-clip" data-idle="ur" data-src="assets/maestro/idle-ur.mp4" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
+          <video class="maestro-clip" data-idle="dl" data-src="assets/maestro/idle-dl.mp4" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
+          <video class="maestro-clip" data-idle="dr" data-src="assets/maestro/idle-dr.mp4" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
           <video class="maestro-clip" data-clip="c-ul" data-src="assets/maestro/c-ul.mp4" muted playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
           <video class="maestro-clip" data-clip="c-ur" data-src="assets/maestro/c-ur.mp4" muted playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
           <video class="maestro-clip" data-clip="c-dl" data-src="assets/maestro/c-dl.mp4" muted playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
@@ -157,7 +162,7 @@
           <video class="maestro-clip" data-clip="ur-c" data-src="assets/maestro/ur-c.mp4" muted playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
           <video class="maestro-clip" data-clip="dl-c" data-src="assets/maestro/dl-c.mp4" muted playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
           <video class="maestro-clip" data-clip="dr-c" data-src="assets/maestro/dr-c.mp4" muted playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
-          </div>
+</div>
         </div>
       </div>
 
@@ -667,7 +672,7 @@
     </div>
   </footer>
 
-  <script src="main.js?v=20261030"></script>
+  <script src="main.js?v=20261103"></script>
 </body>
 
 </html>

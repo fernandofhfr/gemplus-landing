@@ -208,12 +208,20 @@ function initializeMaestro() {
     return;
   }
 
+  // Giros de cabeca (centro <-> canto) e loops de regencia de cada pose.
   const clips = {};
+  const idles = {};
   stage.querySelectorAll('video[data-clip]').forEach((video) => {
     clips[video.dataset.clip] = video;
   });
+  stage.querySelectorAll('video[data-idle]').forEach((video) => {
+    idles[video.dataset.idle] = video;
+  });
 
-  const touchOnly = window.matchMedia('(hover: none)').matches;
+  const TURN_SPEED = 1.6;
+  const FADE_MS = 260;
+  const TARGET_DELAY_MS = 250;
+  const touchOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
   const lookAroundOrder = ['ul', 'ur', 'dr', 'dl'];
 
   let pose = 'c';
@@ -221,15 +229,69 @@ function initializeMaestro() {
   let pendingTarget = 'c';
   let busy = false;
   let visible = true;
-  let activeClip = null;
+  let current = null;
+  let zIndex = 1;
   let targetTimer = null;
   let busyTimer = null;
   let side = 'r';
   let vertical = 'u';
   let lastInteraction = 0;
+  let mouseSeen = false;
   let lookAroundIndex = 0;
 
-  // A pose e sempre alcancada por um clipe inteiro: do centro para o canto e de volta.
+  // Mostra o video por cima (fade-in) e so depois esconde o anterior: sem buracos no meio.
+  function show(video) {
+    if (current === video) {
+      return;
+    }
+
+    const previous = current;
+    video.style.zIndex = String(++zIndex);
+    video.classList.add('is-active');
+    stage.classList.add('is-playing');
+    current = video;
+
+    if (previous) {
+      window.setTimeout(() => {
+        if (current !== previous) {
+          previous.classList.remove('is-active');
+          previous.pause();
+        }
+      }, FADE_MS + 60);
+    }
+  }
+
+  function play(video) {
+    video.currentTime = 0;
+
+    const reveal = () => show(video);
+    const played = video.play();
+
+    if (video.requestVideoFrameCallback) {
+      video.requestVideoFrameCallback(reveal);
+    } else {
+      video.addEventListener('playing', reveal, { once: true });
+    }
+
+    // Garante a exibicao mesmo se o navegador atrasar o callback de quadro.
+    window.setTimeout(reveal, 400);
+
+    return played;
+  }
+
+  // Loop de regencia da pose atual (aparece quando nao ha giro pendente).
+  function showIdle() {
+    const video = idles[pose];
+
+    if (!video || video.readyState < 3 || current === video) {
+      return;
+    }
+
+    video.loop = true;
+    play(video);
+  }
+
+  // A pose e sempre alcancada por um giro inteiro: do centro para o canto e de volta.
   function nextClipName() {
     if (pose === target) {
       return null;
@@ -244,7 +306,13 @@ function initializeMaestro() {
     }
 
     const name = nextClipName();
-    const video = name && clips[name];
+
+    if (!name) {
+      showIdle();
+      return;
+    }
+
+    const video = clips[name];
 
     if (!video) {
       return;
@@ -257,27 +325,7 @@ function initializeMaestro() {
     }
 
     busy = true;
-    video.currentTime = 0;
-
-    const reveal = () => {
-      if (activeClip && activeClip !== video) {
-        activeClip.classList.remove('is-active');
-        activeClip.pause();
-        activeClip.currentTime = 0;
-      }
-
-      video.classList.add('is-active');
-      stage.classList.add('is-playing');
-      activeClip = video;
-    };
-
-    const played = video.play();
-
-    if (video.requestVideoFrameCallback) {
-      video.requestVideoFrameCallback(reveal);
-    } else {
-      video.addEventListener('playing', reveal, { once: true });
-    }
+    video.playbackRate = TURN_SPEED;
 
     let finished = false;
     const finish = () => {
@@ -294,7 +342,9 @@ function initializeMaestro() {
 
     video.addEventListener('ended', finish, { once: true });
     // Rede de seguranca: se o navegador nao disparar 'ended', nao trava a animacao.
-    busyTimer = window.setTimeout(finish, 6000);
+    busyTimer = window.setTimeout(finish, ((video.duration || 4) / TURN_SPEED) * 1000 + 2000);
+
+    const played = play(video);
 
     if (played && typeof played.catch === 'function') {
       // Autoplay bloqueado (ex.: economia de bateria no iOS): mantem a pose estatica.
@@ -308,7 +358,7 @@ function initializeMaestro() {
     }
   }
 
-  // Debounce: so vale o destino em que o cursor ficou por 150 ms.
+  // Debounce: so vale o destino em que o cursor ficou por um instante.
   function setTarget(next) {
     if (next === pendingTarget) {
       return;
@@ -319,7 +369,7 @@ function initializeMaestro() {
     targetTimer = window.setTimeout(() => {
       target = pendingTarget;
       pump();
-    }, 150);
+    }, TARGET_DELAY_MS);
   }
 
   // Direcao do olhar relativa ao rosto do maestro, nao ao centro da tela.
@@ -327,7 +377,6 @@ function initializeMaestro() {
     const rect = stage.getBoundingClientRect();
     const dx = x - (rect.left + rect.width * 0.5);
     const dy = y - (rect.top + rect.height * 0.28);
-
     const overStage = x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
 
     // Mouse em cima dele ou perto do rosto: olha de frente para quem esta navegando.
@@ -348,6 +397,12 @@ function initializeMaestro() {
 
   function onPointer(event) {
     lastInteraction = Date.now();
+
+    // Qualquer movimento de mouse desliga a varredura automatica do olhar.
+    if (event.pointerType === 'mouse') {
+      mouseSeen = true;
+    }
+
     setTarget(targetFromPoint(event.clientX, event.clientY));
   }
 
@@ -358,13 +413,13 @@ function initializeMaestro() {
   // Sem mouse: o maestro varre o olhar sozinho, a menos que a pessoa toque na tela.
   if (touchOnly) {
     window.setInterval(() => {
-      if (Date.now() - lastInteraction < 8000) {
+      if (mouseSeen || Date.now() - lastInteraction < 8000) {
         return;
       }
 
       lookAroundIndex = (lookAroundIndex + 1) % (lookAroundOrder.length + 1);
       setTarget(lookAroundOrder[lookAroundIndex] || 'c');
-    }, 4500);
+    }, 5000);
   }
 
   // Se algo atrasar um clipe, retoma sozinho quando o destino ainda nao foi alcancado.
@@ -374,28 +429,40 @@ function initializeMaestro() {
     new IntersectionObserver((entries) => {
       visible = entries[0].isIntersecting;
 
-      if (visible) {
-        pump();
+      if (!visible) {
+        current?.pause();
+        return;
       }
+
+      current?.play().catch(() => {});
+      pump();
     }, { threshold: 0.1 }).observe(stage);
   }
 
-  // Carrega os clipes depois da pagina: primeiro os que saem do centro.
-  function loadClips() {
-    const names = Object.keys(clips).sort((a, b) => Number(b.startsWith('c-')) - Number(a.startsWith('c-')));
+  // Carrega depois da pagina: primeiro o loop do centro, depois os giros que saem do centro.
+  function loadVideos() {
+    const order = [
+      idles.c,
+      ...Object.keys(clips).filter((name) => name.startsWith('c-')).map((name) => clips[name]),
+      ...Object.keys(clips).filter((name) => !name.startsWith('c-')).map((name) => clips[name]),
+      ...Object.keys(idles).filter((name) => name !== 'c').map((name) => idles[name]),
+    ].filter(Boolean);
 
-    names.forEach((name, index) => {
+    order.forEach((video, index) => {
       window.setTimeout(() => {
-        const video = clips[name];
         video.src = video.dataset.src;
         video.load();
-      }, index * 250);
+
+        if (video === idles.c) {
+          video.addEventListener('canplay', pump, { once: true });
+        }
+      }, index * 200);
     });
   }
 
   if (document.readyState === 'complete') {
-    loadClips();
+    loadVideos();
   } else {
-    window.addEventListener('load', () => window.setTimeout(loadClips, 300), { once: true });
+    window.addEventListener('load', () => window.setTimeout(loadVideos, 300), { once: true });
   }
 }
