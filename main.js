@@ -218,10 +218,12 @@ function initializeMaestro() {
 
   let pose = 'c';
   let target = 'c';
+  let pendingTarget = 'c';
   let busy = false;
   let visible = true;
   let activeClip = null;
   let targetTimer = null;
+  let busyTimer = null;
   let side = 'r';
   let vertical = 'u';
   let lastInteraction = 0;
@@ -277,29 +279,45 @@ function initializeMaestro() {
       video.addEventListener('playing', reveal, { once: true });
     }
 
-    video.addEventListener('ended', () => {
+    let finished = false;
+    const finish = () => {
+      if (finished) {
+        return;
+      }
+
+      finished = true;
+      window.clearTimeout(busyTimer);
       pose = name.split('-')[1];
       busy = false;
       pump();
-    }, { once: true });
+    };
+
+    video.addEventListener('ended', finish, { once: true });
+    // Rede de seguranca: se o navegador nao disparar 'ended', nao trava a animacao.
+    busyTimer = window.setTimeout(finish, 6000);
 
     if (played && typeof played.catch === 'function') {
       // Autoplay bloqueado (ex.: economia de bateria no iOS): mantem a pose estatica.
       played.catch(() => {
+        finished = true;
+        window.clearTimeout(busyTimer);
         busy = false;
         target = pose;
+        pendingTarget = pose;
       });
     }
   }
 
+  // Debounce: so vale o destino em que o cursor ficou por 150 ms.
   function setTarget(next) {
-    if (next === target) {
+    if (next === pendingTarget) {
       return;
     }
 
+    pendingTarget = next;
     window.clearTimeout(targetTimer);
     targetTimer = window.setTimeout(() => {
-      target = next;
+      target = pendingTarget;
       pump();
     }, 150);
   }
@@ -348,6 +366,9 @@ function initializeMaestro() {
       setTarget(lookAroundOrder[lookAroundIndex] || 'c');
     }, 4500);
   }
+
+  // Se algo atrasar um clipe, retoma sozinho quando o destino ainda nao foi alcancado.
+  window.setInterval(pump, 1000);
 
   if ('IntersectionObserver' in window) {
     new IntersectionObserver((entries) => {
