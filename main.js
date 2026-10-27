@@ -218,23 +218,24 @@ function initializeMaestro() {
     idles[video.dataset.idle] = video;
   });
 
-  const TURN_SPEED = 1.6;
-  const FADE_MS = 260;
-  const TARGET_DELAY_MS = 250;
+  const TURN_SPEED = 2.8;
+  const FADE_MS = 200;
+  const TARGET_DELAY_MS = 150;
+  const FRAME = 1 / 24;
   const touchOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
   const lookAroundOrder = ['ul', 'ur', 'dr', 'dl'];
 
   let pose = 'c';
   let target = 'c';
   let pendingTarget = 'c';
-  let busy = false;
+  let transit = null;
+  let token = 0;
   let visible = true;
   let current = null;
+  let wanted = null;
   let zIndex = 1;
   let targetTimer = null;
   let busyTimer = null;
-  let side = 'r';
-  let vertical = 'u';
   let lastInteraction = 0;
   let mouseSeen = false;
   let lookAroundIndex = 0;
@@ -261,25 +262,26 @@ function initializeMaestro() {
     }
   }
 
-  function play(video) {
-    video.currentTime = 0;
+  // Aparece assim que o video comeca a tocar. (requestVideoFrameCallback nao serve aqui:
+  // um video com opacity 0 nao e composto e nunca dispara o callback.)
+  function reveal(video, played) {
+    wanted = video;
 
-    const reveal = () => show(video);
-    const played = video.play();
+    // So mostra se ainda for o video pretendido (evita reexibir um clipe ja trocado).
+    const showIfWanted = () => {
+      if (wanted === video) {
+        show(video);
+      }
+    };
 
-    if (video.requestVideoFrameCallback) {
-      video.requestVideoFrameCallback(reveal);
-    } else {
-      video.addEventListener('playing', reveal, { once: true });
+    if (played && typeof played.then === 'function') {
+      played.then(showIfWanted).catch(() => {});
     }
 
-    // Garante a exibicao mesmo se o navegador atrasar o callback de quadro.
-    window.setTimeout(reveal, 400);
-
-    return played;
+    window.setTimeout(showIfWanted, 250);
   }
 
-  // Loop de regencia da pose atual (aparece quando nao ha giro pendente).
+  // Loop de regencia da pose atual (aparece quando nao ha giro em andamento).
   function showIdle() {
     const video = idles[pose];
 
@@ -288,30 +290,87 @@ function initializeMaestro() {
     }
 
     video.loop = true;
-    play(video);
+    video.currentTime = 0;
+    reveal(video, video.play());
   }
 
-  // A pose e sempre alcancada por um giro inteiro: do centro para o canto e de volta.
-  function nextClipName() {
-    if (pose === target) {
-      return null;
+  // O retorno ao centro e o mesmo clipe de ida tocado ao contrario (arquivo invertido),
+  // entao o quadro da posicao "t" na ida e o quadro "duracao - t" na volta.
+  function startClip(name, offset = 0) {
+    const video = clips[name];
+
+    if (!video || video.readyState < 3) {
+      return false;
     }
 
-    return pose === 'c' ? `c-${target}` : `${pose}-c`;
+    const id = ++token;
+    window.clearTimeout(busyTimer);
+
+    if (transit && transit.video !== video) {
+      transit.video.pause();
+    }
+
+    transit = { name, video, id };
+    video.playbackRate = TURN_SPEED;
+
+    const finish = () => {
+      if (!transit || transit.id !== id) {
+        return;
+      }
+
+      window.clearTimeout(busyTimer);
+      pose = name.split('-')[1];
+      transit = null;
+      plan();
+    };
+
+    const go = () => {
+      if (!transit || transit.id !== id) {
+        return;
+      }
+
+      const played = video.play();
+      reveal(video, played);
+
+      if (played && typeof played.catch === 'function') {
+        // Autoplay bloqueado (ex.: economia de bateria no iOS): mantem a pose estatica.
+        played.catch(() => {
+          if (transit && transit.id === id) {
+            transit = null;
+            target = pose;
+            pendingTarget = pose;
+          }
+        });
+      }
+    };
+
+    video.addEventListener('ended', finish, { once: true });
+    // Rede de seguranca: se o navegador nao disparar 'ended', nao trava a animacao.
+    busyTimer = window.setTimeout(finish, ((video.duration || 4) / TURN_SPEED) * 1000 + 1500);
+
+    if (offset > 0.02) {
+      video.addEventListener('seeked', go, { once: true });
+      video.currentTime = offset;
+    } else {
+      video.currentTime = 0;
+      go();
+    }
+
+    return true;
   }
 
-  function pump() {
-    if (busy || !visible) {
+  // Sem giro em andamento: segue para o destino (sempre passando pelo centro).
+  function plan() {
+    if (transit || !visible) {
       return;
     }
 
-    const name = nextClipName();
-
-    if (!name) {
+    if (pose === target) {
       showIdle();
       return;
     }
 
+    const name = pose === 'c' ? `c-${target}` : `${pose}-c`;
     const video = clips[name];
 
     if (!video) {
@@ -320,45 +379,32 @@ function initializeMaestro() {
 
     // Clipe ainda nao baixou: tenta de novo quando estiver pronto.
     if (video.readyState < 3) {
-      video.addEventListener('canplay', pump, { once: true });
+      video.addEventListener('canplay', plan, { once: true });
       return;
     }
 
-    busy = true;
-    video.playbackRate = TURN_SPEED;
+    startClip(name);
+  }
 
-    let finished = false;
-    const finish = () => {
-      if (finished) {
-        return;
-      }
+  // O destino mudou no meio de um giro: inverte na hora, no mesmo quadro, sem tranco.
+  function retarget() {
+    if (!transit) {
+      plan();
+      return;
+    }
 
-      finished = true;
-      window.clearTimeout(busyTimer);
-      pose = name.split('-')[1];
-      busy = false;
-      pump();
-    };
+    const [from, to] = transit.name.split('-');
+    const video = transit.video;
+    const offset = Math.max(0, (video.duration || 4) - video.currentTime - FRAME);
 
-    video.addEventListener('ended', finish, { once: true });
-    // Rede de seguranca: se o navegador nao disparar 'ended', nao trava a animacao.
-    busyTimer = window.setTimeout(finish, ((video.duration || 4) / TURN_SPEED) * 1000 + 2000);
-
-    const played = play(video);
-
-    if (played && typeof played.catch === 'function') {
-      // Autoplay bloqueado (ex.: economia de bateria no iOS): mantem a pose estatica.
-      played.catch(() => {
-        finished = true;
-        window.clearTimeout(busyTimer);
-        busy = false;
-        target = pose;
-        pendingTarget = pose;
-      });
+    if (from === 'c' && target !== to) {
+      startClip(`${to}-c`, offset);
+    } else if (to === 'c' && target === from) {
+      startClip(`c-${from}`, offset);
     }
   }
 
-  // Debounce: so vale o destino em que o cursor ficou por um instante.
+  // Debounce curto: so vale o destino em que o cursor ficou por um instante.
   function setTarget(next) {
     if (next === pendingTarget) {
       return;
@@ -368,7 +414,7 @@ function initializeMaestro() {
     window.clearTimeout(targetTimer);
     targetTimer = window.setTimeout(() => {
       target = pendingTarget;
-      pump();
+      retarget();
     }, TARGET_DELAY_MS);
   }
 
@@ -384,12 +430,19 @@ function initializeMaestro() {
       return 'c';
     }
 
-    if (Math.abs(dx) > rect.width * 0.12) {
-      side = dx < 0 ? 'l' : 'r';
-    }
+    // Perto da linha central so mantem o lado atual se ele ja estiver olhando para um canto;
+    // vindo do centro, vale o lado real do cursor (sem memoria de um movimento antigo).
+    let vertical = dy < 0 ? 'u' : 'd';
+    let side = dx < 0 ? 'l' : 'r';
 
-    if (Math.abs(dy) > rect.height * 0.08) {
-      vertical = dy < 0 ? 'u' : 'd';
+    if (pendingTarget !== 'c') {
+      if (Math.abs(dy) < rect.height * 0.08) {
+        vertical = pendingTarget[0];
+      }
+
+      if (Math.abs(dx) < rect.width * 0.12) {
+        side = pendingTarget[1];
+      }
     }
 
     return `${vertical}${side}`;
@@ -423,19 +476,27 @@ function initializeMaestro() {
   }
 
   // Se algo atrasar um clipe, retoma sozinho quando o destino ainda nao foi alcancado.
-  window.setInterval(pump, 1000);
+  window.setInterval(() => {
+    if (!transit) {
+      plan();
+    }
+  }, 1000);
 
   if ('IntersectionObserver' in window) {
     new IntersectionObserver((entries) => {
       visible = entries[0].isIntersecting;
 
-      if (!visible) {
-        current?.pause();
+      // Fora da tela so o loop de regencia para; um giro em andamento termina normalmente.
+      if (!visible && current?.loop) {
+        current.pause();
         return;
       }
 
-      current?.play().catch(() => {});
-      pump();
+      if (visible && current?.loop) {
+        current.play().catch(() => {});
+      }
+
+      plan();
     }, { threshold: 0.1 }).observe(stage);
   }
 
@@ -454,7 +515,7 @@ function initializeMaestro() {
         video.load();
 
         if (video === idles.c) {
-          video.addEventListener('canplay', pump, { once: true });
+          video.addEventListener('canplay', plan, { once: true });
         }
       }, index * 200);
     });

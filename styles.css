@@ -373,7 +373,7 @@ code {
 
 .maestro-clip {
   opacity: 0;
-  transition: opacity 0.26s linear;
+  transition: opacity 0.2s linear;
 }
 
 .maestro-clip.is-active {
