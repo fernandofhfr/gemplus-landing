@@ -1,5 +1,29 @@
 # Checklist de publicação — Landing Page GEM+
 
+## Situação atual (13/11/2026)
+
+| Pasta | O que é | Status |
+|---|---|---|
+| `landing-v2-acesso-antecipado/` | Fase de testes: lista de espera + botão para testadores | **Em produção em gemplus.app** |
+| `landing-v2/` | Versão do lançamento oficial | Guardada, publicar quando o app abrir para todos |
+| raiz (`index.html` etc.) | V1 de pré-lançamento | Histórico, não está mais no ar |
+
+### Como publicar (não há deploy automático)
+
+O container `gemplus-landing` (nginx) serve a pasta `/opt/apps/gemplus/landing/public` da VPS (`ssh vps-hostinger`). Publicar = trocar o conteúdo dessa pasta:
+
+1. Gerar o CSS: `npm run build:antecipado` (ou `npm run build:v2`).
+2. Montar um pacote só com `index.html`, `styles.css`, `main.js`, `dist/tailwind.css` e os arquivos de `assets/` que o `index.html` usa.
+3. Na VPS: `sudo cp -a public public.backup-before-<nome>-<data>` dentro de `/opt/apps/gemplus/landing`.
+4. Esvaziar `public/` (sem apagar a pasta, porque ela é montada no container) e extrair o pacote nela.
+5. Conferir `https://gemplus.app` (abrir em janela anônima ou com Ctrl+F5).
+
+Ao mudar CSS/JS, troque a etiqueta `?v=` nos links do `index.html` para o navegador baixar a versão nova.
+
+---
+
+## Checklist antigo (V1)
+
 Antes de publicar, verificar cada item abaixo.
 
 ## Arquivos que DEVEM ir para publicação

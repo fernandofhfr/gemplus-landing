@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GEM+ | Gestão do Ensino Musical no Celular</title>
+  <meta name="description"
+    content="Ensino organizado e acompanhamento de perto. O GEM+ registra presenças, lições dos métodos e o histórico de cada aluno no celular, de forma simples, para o foco ficar na aula.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#212842">
+
+  <!-- Open Graph / Redes Sociais -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="GEM+ | Gestão do Ensino Musical no Celular">
+  <meta property="og:description"
+    content="Ensino organizado e acompanhamento de perto. Presenças, lições e histórico de cada aluno registrados no celular, de forma simples.">
+  <meta property="og:url" content="https://gemplus.app">
+  <meta property="og:image" content="https://gemplus.app/assets/brand/og-gemplus.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GEM+ | Gestão do Ensino Musical no Celular">
+  <meta name="twitter:description"
+    content="Ensino organizado e acompanhamento de perto. Presenças, lições e histórico de cada aluno registrados no celular, de forma simples.">
+  <meta name="twitter:image" content="https://gemplus.app/assets/brand/og-gemplus.png">
+
+  <link rel="canonical" href="https://gemplus.app">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23212842'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='system-ui' font-weight='900' font-size='16' fill='%23f8f4ed'%3EG%2B%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+
+  <!-- Google Fonts: Montserrat (Headings) e Open Sans (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos Customizados e Tailwind Compilado -->
+  <link rel="stylesheet" href="styles.css?v=ea2">
+  <link rel="stylesheet" href="dist/tailwind.css?v=ea2">
+</head>
+
+<body class="antialiased selection:bg-warning/20 selection:text-foreground">
+
+  <!-- NAVEGAÇÃO SUPERIOR -->
+  <nav class="fixed top-0 left-0 right-0 z-[100] glass transition-all duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-3 sm:gap-4">
+      
+      <!-- Logo GEM+ (2 linhas alinhadas à altura do ícone) -->
+      <a href="#topo" class="flex items-center gap-3.5 hover:opacity-85 transition-opacity shrink-0" aria-label="GEM+ - Início">
+        <picture>
+          <source srcset="assets/brand/logo.webp" type="image/webp">
+          <img src="assets/brand/logo-fallback.png" alt="Logo GEM+" width="44" height="44" class="w-11 h-11 object-contain shrink-0">
+        </picture>
+        <div class="flex flex-col text-left justify-center">
+          <span class="text-[25px] font-heading font-black tracking-tight leading-none text-foreground whitespace-nowrap">GEM+</span>
+          <span class="logo-subtext text-[10px] font-bold uppercase tracking-[0.16em] text-foreground/60 leading-tight whitespace-nowrap mt-1">Gestão do Ensino Musical</span>
+        </div>
+      </a>
+
+      <!-- Menu Desktop (Linha única, sem quebras) -->
+      <div class="hidden lg:flex items-center gap-6 xl:gap-8 text-[13px] font-bold uppercase tracking-wider text-foreground/75 whitespace-nowrap">
+        <a href="#recursos" class="hover:text-primary transition-colors whitespace-nowrap">Recursos</a>
+        <a href="#como-funciona" class="hover:text-primary transition-colors whitespace-nowrap">Rotina</a>
+        <a href="#matriz-acessos" class="hover:text-primary transition-colors whitespace-nowrap">Perfis</a>
+        <a href="#no-celular" class="hover:text-primary transition-colors whitespace-nowrap">Instalar</a>
+        <a href="#origem" class="hover:text-primary transition-colors whitespace-nowrap">História</a>
+        <a href="#faq" class="hover:text-primary transition-colors whitespace-nowrap">Dúvidas</a>
+      </div>
+
+      <!-- Ações do Topo -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <!-- Toggle Tema Escuro/Claro -->
+        <button id="theme-toggle"
+          class="p-2 rounded-full hover:bg-foreground/5 transition-colors focus:ring-2 focus:ring-primary/20 outline-none"
+          aria-label="Alternar tema claro e escuro">
+          <span id="theme-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2" />
+              <path d="M12 20v2" />
+              <path d="M4.93 4.93l1.41 1.41" />
+              <path d="M17.66 17.66l1.41 1.41" />
+              <path d="M2 12h2" />
+              <path d="M20 12h2" />
+              <path d="M4.93 19.07l1.41-1.41" />
+              <path d="M17.66 6.34l1.41-1.41" />
+            </svg>
+          </span>
+        </button>
+
+        <!-- Acesso dos testadores (só em telas largas, para não apertar o menu) -->
+        <a href="https://app.gemplus.app" target="_blank" rel="noopener noreferrer"
+          class="hidden xl:inline-flex items-center justify-center whitespace-nowrap rounded-full font-heading text-sm font-bold transition-all duration-200 h-10 px-5 border border-foreground/15 text-foreground hover:bg-foreground/5">
+          <span>Testadores</span>
+        </a>
+
+        <!-- CTA principal: lista de espera -->
+        <a href="#lista"
+          class="hidden sm:inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-heading text-[13px] md:text-sm font-bold transition-all duration-200 h-10 px-5 bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm active:scale-95">
+          <span>Lista de espera</span>
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-toggle"
+          class="lg:hidden p-2 rounded-full hover:bg-foreground/5 transition-colors focus:ring-2 focus:ring-primary/20 outline-none"
+          aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Dropdown Mobile -->
+    <div id="mobile-menu" class="lg:hidden hidden border-t border-foreground/10 bg-background/98 backdrop-blur-xl">
+      <div class="max-w-7xl mx-auto px-6 py-6 flex flex-col gap-4 text-left">
+        <a href="#recursos" class="font-heading font-bold text-[14px] uppercase tracking-wider text-foreground/80 hover:text-primary py-2">Recursos</a>
+        <a href="#como-funciona" class="font-heading font-bold text-[14px] uppercase tracking-wider text-foreground/80 hover:text-primary py-2">Rotina</a>
+        <a href="#matriz-acessos" class="font-heading font-bold text-[14px] uppercase tracking-wider text-foreground/80 hover:text-primary py-2">Perfis</a>
+        <a href="#no-celular" class="font-heading font-bold text-[14px] uppercase tracking-wider text-foreground/80 hover:text-primary py-2">Instalar</a>
+        <a href="#origem" class="font-heading font-bold text-[14px] uppercase tracking-wider text-foreground/80 hover:text-primary py-2">História</a>
+        <a href="#faq" class="font-heading font-bold text-[14px] uppercase tracking-wider text-foreground/80 hover:text-primary py-2">Dúvidas</a>
+        <div class="pt-4 border-t border-foreground/10 space-y-3">
+          <a href="#lista"
+            class="flex items-center justify-center gap-2 w-full rounded-full font-heading text-[14px] font-bold h-12 bg-primary text-primary-foreground shadow-sm">
+            <span>Lista de espera</span>
+          </a>
+          <a href="https://app.gemplus.app" target="_blank" rel="noopener noreferrer"
+            class="flex items-center justify-center gap-2 w-full rounded-full font-heading text-[14px] font-bold h-12 border border-foreground/15 text-foreground">
+            <span>Testadores</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main id="topo" class="pt-28 md:pt-36">
+
+    <!-- ==========================================
+         HERO SECTION: DIRETO & ENXUTO
+         ========================================== -->
+    <section class="max-w-7xl mx-auto px-6 pt-6 pb-20 md:pb-28">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+
+        <!-- Coluna da Esquerda: Proposta de Valor -->
+        <div class="lg:col-span-7 lg:self-stretch flex flex-col text-center lg:text-left">
+          <div class="space-y-6">
+
+          <div class="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/5 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider text-primary">
+            <span>Acesso antecipado</span>
+          </div>
+
+          <h1 class="text-[clamp(28px,8.6vw,36px)] sm:text-[48px] md:text-[58px] leading-[1.08] font-heading font-black text-foreground">
+            Ensino organizado<br>
+            <span class="text-primary/70 italic font-bold">Acompanhamento de perto</span>
+          </h1>
+
+          <p class="text-[17px] sm:text-[19px] md:text-[20px] text-foreground/80 leading-[1.6] font-body max-w-2xl mx-auto lg:mx-0">
+            Presenças, lições e histórico de cada aluno registrados no celular de forma simples. O foco passa a ser a aula e não o registro.
+          </p>
+
+          <!-- Ações Principais -->
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+            <a href="#lista"
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-full font-heading text-[14px] font-bold h-12 px-7 bg-primary text-primary-foreground hover:bg-primary/90 shadow-md transition-all active:scale-95">
+              <span>Lista de espera</span>
+            </a>
+
+            <a href="https://app.gemplus.app" target="_blank" rel="noopener noreferrer"
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full font-heading text-[14px] font-bold h-12 px-6 border border-foreground/15 text-foreground hover:bg-foreground/5 transition-all">
+              <span>Sou testador</span>
+            </a>
+          </div>
+
+          <p class="text-[13px] text-foreground/60 font-semibold">
+            Em testes com um grupo restrito. O acesso de testador pede senha.
+          </p>
+
+          </div>
+
+          <!-- Famílias de instrumentos (ícones de linha, herdam a cor do tema) -->
+          <div class="mt-14 lg:mt-10 lg:flex-1 flex items-center justify-center lg:justify-start">
+            <ul class="grid grid-cols-4 gap-4 w-full max-w-xl text-foreground/70" aria-label="Famílias de instrumentos atendidas">
+              <li class="flex flex-col items-center gap-3">
+                <svg class="w-14 h-14" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="16" cy="2.9" r="1.4"/>
+                  <path d="M15.2 4.2v3.6h1.6V4.2M13.9 5.4h1.3M16.8 5.4h1.3M13.9 6.8h1.3M16.8 6.8h1.3"/>
+                  <path d="M16 10.6c-3 0-5.4.8-5.4 3.7 0 1.8 1 2.5 1.8 2.9-.5.9-.4 2.5.2 3.3-1.6.6-2.8 1.9-2.8 4.4 0 3.4 2.8 5.6 6.2 5.6s6.2-2.2 6.2-5.6c0-2.5-1.2-3.8-2.8-4.4.6-.8.7-2.4.2-3.3.8-.4 1.8-1.1 1.8-2.9 0-2.9-2.4-3.7-5.4-3.7Z"/>
+                  <path d="M15.2 7.8 14.7 21h2.6l-.5-13.2"/>
+                  <path d="M14.2 23.6c1.2-.5 2.4-.5 3.6 0"/>
+                  <path d="M15.2 25.2h1.6l-.3 3.6h-1Z"/>
+                  <path d="M13.3 21.6c-.7.9.4 2-.2 3M18.7 21.6c.7.9-.4 2 .2 3"/>
+                </svg>
+                <span class="text-[12px] font-heading font-bold uppercase tracking-wider">Cordas</span>
+              </li>
+              <li class="flex flex-col items-center gap-3">
+                <svg class="w-14 h-14" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <g transform="rotate(40 16 16)">
+                    <path d="M15 1.5h2l.6 3.5h-3.2Z"/>
+                    <path d="M14.6 5v17.5M17.4 5v17.5"/>
+                    <path d="M14.6 22.5c0 3-1.8 5.2-3.1 7h9c-1.3-1.8-3.1-4-3.1-7"/>
+                    <circle cx="16" cy="9.5" r=".8"/>
+                    <circle cx="16" cy="13.5" r=".8"/>
+                    <circle cx="16" cy="17.5" r=".8"/>
+                  </g>
+                </svg>
+                <span class="text-[12px] font-heading font-bold uppercase tracking-wider">Madeiras</span>
+              </li>
+              <li class="flex flex-col items-center gap-3">
+                <svg class="w-14 h-14" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M2.5 12.6 4.4 13.5 2.5 14.4Z"/>
+                  <path d="M4.4 13.5H11.2M18.8 13.5H21"/>
+                  <path d="M21 13.5c3.2 0 6-2 8.3-5.3M21 13.5c3.2 0 6 2 8.3 5.3"/>
+                  <path d="M29.3 8.2c1 2.6 1 8 0 10.6"/>
+                  <rect x="11.2" y="10.5" width="2.2" height="9.5" rx="1.1"/>
+                  <rect x="14.4" y="10.5" width="2.2" height="9.5" rx="1.1"/>
+                  <rect x="17.6" y="10.5" width="2.2" height="9.5" rx="1.1"/>
+                  <circle cx="12.3" cy="8.3" r="1"/><circle cx="15.5" cy="8.3" r="1"/><circle cx="18.7" cy="8.3" r="1"/>
+                  <path d="M11.2 18H7.8a2.6 2.6 0 0 0 0 5.2h12.4a2.6 2.6 0 0 0 2.6-2.6v-7"/>
+                </svg>
+                <span class="text-[12px] font-heading font-bold uppercase tracking-wider">Metais</span>
+              </li>
+              <li class="flex flex-col items-center gap-3">
+                <svg class="w-14 h-14" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="8.5" width="26" height="15" rx="2"/>
+                  <path d="M16 8.5v15M7.3 18.5v5M11.7 18.5v5M20.3 18.5v5M24.7 18.5v5"/>
+                  <path d="M6 8.5v10h2.6v-10M10.4 8.5v10H13v-10M19 8.5v10h2.6v-10M23.4 8.5v10H26v-10"/>
+                </svg>
+                <span class="text-[12px] font-heading font-bold uppercase tracking-wider">Teclas</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Coluna da Direita: Mockup Realista de Celular Android -->
+        <div class="lg:col-span-5 flex flex-col items-center justify-center">
+          <div class="android-device">
+            <div class="android-btn-vol"></div>
+            <div class="android-btn-power"></div>
+
+            <div class="android-screen">
+              <!-- Barra de status superior -->
+              <div class="android-status-bar">
+                <span class="android-time">19:30</span>
+                <div class="android-camera-dot"></div>
+                <div class="android-status-icons">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.53 16.11a6 6 0 016.95 0M4.93 12.5a10 10 0 0114.14 0M1.34 8.89a14 14 0 0121.32 0M12 20h.01" />
+                  </svg>
+                  <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="2" y="16" width="3" height="5" rx="0.5"/>
+                    <rect x="7" y="12" width="3" height="9" rx="0.5"/>
+                    <rect x="12" y="8" width="3" height="13" rx="0.5"/>
+                    <rect x="17" y="4" width="3" height="17" rx="0.5"/>
+                  </svg>
+                  <div class="flex items-center gap-1">
+                    <span class="text-[10px] font-bold">85%</span>
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="2" y="7" width="16" height="10" rx="2" />
+                      <path d="M18 11v2" />
+                      <rect x="4" y="9" width="10" height="6" fill="currentColor" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Viewport do App GEM+ com Menus Superior e Inferior Travados -->
+              <div class="android-app-viewport">
+                <!-- Menu Superior do App (Fixo / Travado) -->
+                <div class="android-app-header">
+                  <picture>
+                    <source srcset="assets/images/phone1-app-header.webp" type="image/webp">
+                    <img src="assets/images/phone1-app-header.png" alt="Menu superior GEM+ - Felipe" loading="eager" width="300" height="42">
+                  </picture>
+                </div>
+
+                <!-- Conteúdo Central Rolável (Somente o meio rola) -->
+                <div class="android-app-body" title="Role para ver as últimas aulas">
+                  <picture>
+                    <source srcset="assets/images/phone1-app-body.webp" type="image/webp">
+                    <img src="assets/images/phone1-app-body.png" alt="Progresso nos métodos e histórico de aulas do aluno Felipe" loading="eager" width="300" height="854">
+                  </picture>
+                </div>
+
+                <!-- Menu Inferior do App (Fixo / Travado) -->
+                <div class="android-app-footer">
+                  <picture>
+                    <source srcset="assets/images/phone1-app-footer.webp" type="image/webp">
+                    <img src="assets/images/phone1-app-footer.png" alt="Menu inferior do aplicativo GEM+" loading="eager" width="300" height="44">
+                  </picture>
+                </div>
+              </div>
+
+              <!-- Barra de navegação inferior -->
+              <div class="android-nav-bar">
+                <div class="android-nav-btn" title="Aplicativos recentes">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <line x1="7" y1="5" x2="7" y2="19" />
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="17" y1="5" x2="17" y2="19" />
+                  </svg>
+                </div>
+                <div class="android-nav-btn" title="Tela inicial">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <rect x="4.5" y="4.5" width="15" height="15" rx="4" />
+                  </svg>
+                </div>
+                <div class="android-nav-btn" title="Voltar">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 19l-7-7 7-7" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Dica de rolagem sutil -->
+          <div class="mt-3.5 flex items-center justify-center gap-1.5 text-xs text-foreground/50 font-medium select-none">
+            <svg class="w-3.5 h-3.5 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 5v14M19 12l-7 7-7-7"/>
+            </svg>
+            <span>Role dentro do celular para ver mais aulas</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         RECURSOS DO SISTEMA: 6 CARDS ENXUTOS
+         ========================================== -->
+    <section id="recursos" class="py-20 md:py-28 border-t border-foreground/8 bg-card/40 fade-in-section">
+      <div class="max-w-7xl mx-auto px-6">
+        
+        <div class="max-w-3xl mb-14 text-center sm:text-left space-y-2">
+          <div class="text-[11px] font-bold font-heading uppercase tracking-[0.2em] text-primary/70">
+            Recursos
+          </div>
+          <h2 class="text-[32px] sm:text-[42px] font-heading font-black text-foreground leading-tight">
+            O GEM+ cuida do registro.<br>
+            Você cuida da música.
+          </h2>
+          <p class="text-[17px] text-foreground/75 font-semibold">
+            Tudo o que antes ficava em fichas e cadernos, organizado para melhorar a qualidade de cada aula.
+          </p>
+        </div>
+
+        <!-- Grid de Recursos Enxutos -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <!-- 1. Grade de Lições -->
+          <div class="clean-card p-7 space-y-2.5">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
+              01
+            </div>
+            <h3 class="font-heading font-bold text-[18px] text-foreground">Grade completa de lições</h3>
+            <p class="text-[14px] text-foreground/75 leading-relaxed font-semibold">
+              Grade visual dos métodos para aprovar as lições concluídas na aula com um toque.
+            </p>
+          </div>
+
+          <!-- 2. Todos os Métodos da Orquestra -->
+          <div class="clean-card p-7 space-y-2.5">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
+              02
+            </div>
+            <h3 class="font-heading font-bold text-[18px] text-foreground">Todos os métodos da orquestra</h3>
+            <p class="text-[14px] text-foreground/75 leading-relaxed font-semibold">
+              Ementas cadastradas para cordas, madeiras, metais e teclas.
+            </p>
+          </div>
+
+          <!-- 3. Diário de Presença -->
+          <div class="clean-card p-7 space-y-2.5">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
+              03
+            </div>
+            <h3 class="font-heading font-bold text-[18px] text-foreground">Chamada e frequência</h3>
+            <p class="text-[14px] text-foreground/75 leading-relaxed font-semibold">
+              Registre presença, falta ou justificativa com cálculo automático de frequência.
+            </p>
+          </div>
+
+          <!-- 4. Histórico que Não se Perde -->
+          <div class="clean-card p-7 space-y-2.5">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
+              04
+            </div>
+            <h3 class="font-heading font-bold text-[18px] text-foreground">Histórico que não se perde</h3>
+            <p class="text-[14px] text-foreground/75 leading-relaxed font-semibold">
+              Mudou o instrutor? As lições do aluno e as anotações dos instrutores ficam salvas, e o próximo continua de onde parou, sem perder a qualidade do ensino.
+            </p>
+          </div>
+
+          <!-- 5. Distribuição de Naipes -->
+          <div class="clean-card p-7 space-y-2.5">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
+              05
+            </div>
+            <h3 class="font-heading font-bold text-[18px] text-foreground">Distribuição da orquestra</h3>
+            <p class="text-[14px] text-foreground/75 leading-relaxed font-semibold">
+              Acompanhe quantos alunos estudam em cada família para equilibrar os naipes.
+            </p>
+          </div>
+
+          <!-- 6. Progresso nos Métodos -->
+          <div class="clean-card p-7 space-y-2.5">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
+              06
+            </div>
+            <h3 class="font-heading font-bold text-[18px] text-foreground">Progresso nos métodos</h3>
+            <p class="text-[14px] text-foreground/75 leading-relaxed font-semibold">
+              A porcentagem concluída de cada método e a próxima lição sempre à vista, para o instrutor e para o aluno.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         REGISTRO NA PRÁTICA: 4 PASSOS OBJETIVOS
+         ========================================== -->
+    <section id="como-funciona" class="py-20 md:py-28 max-w-7xl mx-auto px-6 fade-in-section">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Passos de Registro (à direita no desktop, primeiro no celular) -->
+        <div class="lg:col-span-7 space-y-6 lg:order-2">
+          <div class="text-[11px] font-bold font-heading uppercase tracking-[0.2em] text-primary/70">
+            Rotina
+          </div>
+
+          <h2 class="text-[32px] sm:text-[44px] font-heading font-black text-foreground leading-tight">
+            Registro de aula simplificado
+          </h2>
+
+          <p class="text-[17px] text-foreground/75 font-semibold">
+            Tudo em poucos toques, ainda durante a aula:
+          </p>
+
+          <div class="space-y-4 pt-1">
+            <div class="flex items-start gap-3.5">
+              <span class="w-7 h-7 rounded-full bg-primary text-primary-foreground font-heading font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
+              <div>
+                <strong class="text-foreground text-[16px]">Escolha o aluno:</strong>
+                <p class="text-[14px] text-foreground/70 font-semibold">Abra a sua lista de alunos e selecione quem vai atender.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3.5">
+              <span class="w-7 h-7 rounded-full bg-primary text-primary-foreground font-heading font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">2</span>
+              <div>
+                <strong class="text-foreground text-[16px]">Marque a presença:</strong>
+                <p class="text-[14px] text-foreground/70 font-semibold">Toque em Presente, Falta ou Justificada.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3.5">
+              <span class="w-7 h-7 rounded-full bg-primary text-primary-foreground font-heading font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">3</span>
+              <div>
+                <strong class="text-foreground text-[16px]">Aprove as lições:</strong>
+                <p class="text-[14px] text-foreground/70 font-semibold">Selecione na grade as lições concluídas no método.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3.5">
+              <span class="w-7 h-7 rounded-full bg-success text-white font-heading font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">4</span>
+              <div>
+                <strong class="text-foreground text-[16px]">Grave com anotações:</strong>
+                <p class="text-[14px] text-foreground/70 font-semibold">Insira observações de estudo e salve. Histórico atualizado na hora.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mockup do Celular com a Tela de Registro (à esquerda no desktop) -->
+        <div class="lg:col-span-5 flex flex-col items-center justify-center lg:order-1">
+          <div class="android-device">
+            <div class="android-btn-vol"></div>
+            <div class="android-btn-power"></div>
+
+            <div class="android-screen">
+              <div class="android-status-bar">
+                <span class="android-time">19:30</span>
+                <div class="android-camera-dot"></div>
+                <div class="android-status-icons">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.53 16.11a6 6 0 016.95 0M4.93 12.5a10 10 0 0114.14 0M1.34 8.89a14 14 0 0121.32 0M12 20h.01" />
+                  </svg>
+                  <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="2" y="16" width="3" height="5" rx="0.5"/>
+                    <rect x="7" y="12" width="3" height="9" rx="0.5"/>
+                    <rect x="12" y="8" width="3" height="13" rx="0.5"/>
+                    <rect x="17" y="4" width="3" height="17" rx="0.5"/>
+                  </svg>
+                  <div class="flex items-center gap-1">
+                    <span class="text-[10px] font-bold">85%</span>
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="2" y="7" width="16" height="10" rx="2" />
+                      <path d="M18 11v2" />
+                      <rect x="4" y="9" width="10" height="6" fill="currentColor" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Viewport do App GEM+ com Menus Superior e Inferior Travados -->
+              <div class="android-app-viewport">
+                <!-- Menu Superior do App (Fixo / Travado) -->
+                <div class="android-app-header">
+                  <picture>
+                    <source srcset="assets/images/phone2-app-header.webp" type="image/webp">
+                    <img src="assets/images/phone2-app-header.png" alt="Menu superior GEM+ - Lucas" loading="lazy" width="300" height="42">
+                  </picture>
+                </div>
+
+                <!-- Conteúdo Central Rolável (Somente o meio rola) -->
+                <div class="android-app-body" title="Role para ver todo o formulário">
+                  <picture>
+                    <source srcset="assets/images/phone2-app-body.webp" type="image/webp">
+                    <img src="assets/images/phone2-app-body.png" alt="Formulário completo de registrar aula com lições aprovadas e anotações do início ao fim" loading="lazy" width="300" height="716">
+                  </picture>
+                </div>
+
+                <!-- Menu Inferior do App com Banner Registrar Aula (Fixo / Travado) -->
+                <div class="android-app-footer">
+                  <picture>
+                    <source srcset="assets/images/phone2-app-footer.webp" type="image/webp">
+                    <img src="assets/images/phone2-app-footer.png" alt="Banner fixo de registrar aula e menu inferior do aplicativo GEM+" loading="lazy" width="300" height="83">
+                  </picture>
+                </div>
+              </div>
+
+              <div class="android-nav-bar">
+                <div class="android-nav-btn" title="Aplicativos recentes">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <line x1="7" y1="5" x2="7" y2="19" />
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="17" y1="5" x2="17" y2="19" />
+                  </svg>
+                </div>
+                <div class="android-nav-btn" title="Tela inicial">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <rect x="4.5" y="4.5" width="15" height="15" rx="4" />
+                  </svg>
+                </div>
+                <div class="android-nav-btn" title="Voltar">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 19l-7-7 7-7" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Dica de rolagem sutil -->
+          <div class="mt-3.5 flex items-center justify-center gap-1.5 text-xs text-foreground/50 font-medium select-none">
+            <svg class="w-3.5 h-3.5 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 5v14M19 12l-7 7-7-7"/>
+            </svg>
+            <span>Role dentro do celular para ver todo o formulário</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         MATRIZ DE PERMISSÕES POR PAPEL
+         ========================================== -->
+    <section id="matriz-acessos" class="py-20 md:py-28 border-y border-foreground/8 bg-card/40 fade-in-section">
+      <div class="max-w-7xl mx-auto px-6">
+        
+        <div class="max-w-3xl mb-12 text-center sm:text-left space-y-2">
+          <div class="text-[11px] font-bold font-heading uppercase tracking-[0.2em] text-primary/70">
+            Perfis
+          </div>
+          <h2 class="text-[32px] sm:text-[42px] font-heading font-black text-foreground leading-tight">
+            Cada um vê só o que precisa
+          </h2>
+          <p class="text-[17px] text-foreground/75 font-semibold">
+            Menos telas, mais foco: o instrutor vê suas aulas, o aluno vê seus estudos e o gestor vê a orquestra.
+          </p>
+        </div>
+
+        <!-- Tabela Limpa de Recursos por Perfil (Visível no Desktop e Tablet) -->
+        <div class="hidden md:block overflow-x-auto rounded-2xl clean-card">
+          <table class="w-full text-left border-collapse table-matrix text-[14px] font-semibold">
+            <thead>
+              <tr class="bg-foreground/5 font-heading text-[13px] uppercase tracking-wider text-foreground">
+                <th class="py-4 px-6 text-left whitespace-nowrap">Funcionalidade</th>
+                <th class="py-4 px-4 text-center whitespace-nowrap">Gestor</th>
+                <th class="py-4 px-4 text-center whitespace-nowrap">Instrutor</th>
+                <th class="py-4 px-4 text-center whitespace-nowrap">Aluno</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-foreground/8 text-foreground/80">
+              <tr>
+                <td class="font-bold text-foreground">Cadastrar congregação e gerar código de convite</td>
+                <td class="text-center text-success font-black text-base">✓</td>
+                <td class="text-center text-foreground/30">—</td>
+                <td class="text-center text-foreground/30">—</td>
+              </tr>
+              <tr>
+                <td class="font-bold text-foreground">Visualizar panorama de naipes da orquestra</td>
+                <td class="text-center text-success font-black text-base">✓</td>
+                <td class="text-center text-foreground/30">—</td>
+                <td class="text-center text-foreground/30">—</td>
+              </tr>
+              <tr>
+                <td class="font-bold text-foreground">Atribuir alunos e gerenciar instrutores</td>
+                <td class="text-center text-success font-black text-base">✓</td>
+                <td class="text-center text-foreground/30">—</td>
+                <td class="text-center text-foreground/30">—</td>
+              </tr>
+              <tr>
+                <td class="font-bold text-foreground">Registrar presenças e faltas de alunos</td>
+                <td class="text-center text-success font-black text-base">✓</td>
+                <td class="text-center text-success font-black text-base">✓</td>
+                <td class="text-center text-foreground/30">—</td>
+              </tr>
+              <tr>
+                <td class="font-bold text-foreground">Marcar lições aprovadas dos métodos</td>
+                <td class="text-center text-success font-black text-base">✓</td>
+                <td class="text-center text-success font-black text-base">✓</td>
+                <td class="text-center text-foreground/30">—</td>
+              </tr>
+              <tr>
+                <td class="font-bold text-foreground">Registrar e consultar notas de aulas</td>
+                <td class="text-center text-success font-black text-base">✓</td>
+                <td class="text-center text-success font-black text-base">✓</td>
+                <td class="text-center text-foreground/30">—</td>
+              </tr>
+              <tr>
+                <td class="font-bold text-foreground">Consultar a próxima lição dos métodos</td>
+                <td class="text-center text-success font-black text-base">✓</td>
+                <td class="text-center text-success font-black text-base">✓</td>
+                <td class="text-center text-success font-black text-base">✓</td>
+              </tr>
+              <tr>
+                <td class="font-bold text-foreground">Visualizar porcentagem de progresso nos métodos</td>
+                <td class="text-center text-success font-black text-base">✓</td>
+                <td class="text-center text-success font-black text-base">✓</td>
+                <td class="text-center text-success font-black text-base">✓</td>
+              </tr>
+              <tr>
+                <td class="font-bold text-foreground">Acompanhar histórico de aulas e frequências</td>
+                <td class="text-center text-success font-black text-base">✓</td>
+                <td class="text-center text-success font-black text-base">✓</td>
+                <td class="text-center text-success font-black text-base">✓</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Versão Mobile: Abas em Pílula por Perfil (100% responsiva, zero scroll lateral) -->
+        <div class="block md:hidden space-y-4">
+          
+          <!-- Seletor em Pílula (Segmented Control Nativo para Celular) -->
+          <div class="grid grid-cols-3 p-1 rounded-2xl bg-foreground/5 border border-foreground/8 gap-1" role="tablist" aria-label="Perfis de acesso">
+            <button type="button" data-role-tab="gestor" role="tab" aria-selected="true"
+              class="py-2.5 px-2 rounded-xl font-heading text-[13px] font-bold transition-all is-active bg-primary text-primary-foreground shadow-sm text-center select-none">
+              Gestor
+            </button>
+            <button type="button" data-role-tab="instrutor" role="tab" aria-selected="false"
+              class="py-2.5 px-2 rounded-xl font-heading text-[13px] font-bold transition-all text-foreground/70 hover:text-foreground text-center select-none">
+              Instrutor
+            </button>
+            <button type="button" data-role-tab="aluno" role="tab" aria-selected="false"
+              class="py-2.5 px-2 rounded-xl font-heading text-[13px] font-bold transition-all text-foreground/70 hover:text-foreground text-center select-none">
+              Aluno
+            </button>
+          </div>
+
+          <!-- Painel 1: Gestor / Encarregado -->
+          <div data-role-pane="gestor" role="tabpanel" class="clean-card p-5 sm:p-6 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-foreground/8">
+              <div>
+                <h3 class="font-heading font-black text-[18px] text-foreground">Gestor</h3>
+                <p class="text-[12px] font-semibold text-foreground/60">Administração da congregação</p>
+              </div>
+              <span class="inline-flex items-center rounded-full bg-primary/10 text-primary px-3 py-1 text-[11px] font-bold uppercase tracking-wider font-heading">
+                Acesso Total
+              </span>
+            </div>
+
+            <div class="space-y-3 pt-1">
+              <div class="flex items-start gap-3">
+                <span class="text-success font-black text-base shrink-0 mt-0.5">✓</span>
+                <span class="text-[14px] text-foreground font-semibold">Cadastrar congregação e gerar código de convite</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-success font-black text-base shrink-0 mt-0.5">✓</span>
+                <span class="text-[14px] text-foreground font-semibold">Visualizar panorama de naipes da orquestra</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-success font-black text-base shrink-0 mt-0.5">✓</span>
+                <span class="text-[14px] text-foreground font-semibold">Atribuir alunos e gerenciar instrutores</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-success font-black text-base shrink-0 mt-0.5">✓</span>
+                <span class="text-[14px] text-foreground font-semibold">Registrar presenças e faltas de alunos</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-success font-black text-base shrink-0 mt-0.5">✓</span>
+                <span class="text-[14px] text-foreground font-semibold">Marcar lições aprovadas dos métodos</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-success font-black text-base shrink-0 mt-0.5">✓</span>
+                <span class="text-[14px] text-foreground font-semibold">Registrar e consultar notas de aulas</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-success font-black text-base shrink-0 mt-0.5">✓</span>
+                <span class="text-[14px] text-foreground font-semibold">Consultar a próxima lição dos métodos</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-success font-black text-base shrink-0 mt-0.5">✓</span>
+                <span class="text-[14px] text-foreground font-semibold">Visualizar porcentagem de progresso nos métodos</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-success font-black text-base shrink-0 mt-0.5">✓</span>
+                <span class="text-[14px] text-foreground font-semibold">Acompanhar histórico de aulas e frequências</span>
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-foreground/8 text-[12px] text-foreground/50 font-medium">
+              Gera convites com validade de 7 dias para instrutores e alunos ingressarem.
+            </div>
+          </div>
+
+          <!-- Painel 2: Instrutor -->
+          <div data-role-pane="instrutor" role="tabpanel" class="clean-card p-5 sm:p-6 space-y-4 hidden">
+            <div class="flex items-center justify-between pb-3 border-b border-foreground/8">
+              <div>
+                <h3 class="font-heading font-black text-[18px] text-foreground">Instrutor</h3>
+                <p class="text-[12px] font-semibold text-foreground/60">Rotina prática das aulas</p>
+              </div>
+              <span class="inline-flex items-center rounded-full bg-primary/10 text-primary px-3 py-1 text-[11px] font-bold uppercase tracking-wider font-heading">
+                Aulas e Métodos
+              </span>
+            </div>
+
+            <div class="space-y-3 pt-1">
+              <div class="flex items-start gap-3">
+                <span class="text-success font-black text-base shrink-0 mt-0.5">✓</span>
+                <span class="text-[14px] text-foreground font-semibold">Registrar presenças e faltas de alunos</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-success font-black text-base shrink-0 mt-0.5">✓</span>
+                <span class="text-[14px] text-foreground font-semibold">Marcar lições aprovadas dos métodos</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-success font-black text-base shrink-0 mt-0.5">✓</span>
+                <span class="text-[14px] text-foreground font-semibold">Registrar e consultar notas de aulas</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-success font-black text-base shrink-0 mt-0.5">✓</span>
+                <span class="text-[14px] text-foreground font-semibold">Consultar a próxima lição dos métodos</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-success font-black text-base shrink-0 mt-0.5">✓</span>
+                <span class="text-[14px] text-foreground font-semibold">Visualizar porcentagem de progresso nos métodos</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-success font-black text-base shrink-0 mt-0.5">✓</span>
+                <span class="text-[14px] text-foreground font-semibold">Acompanhar histórico de aulas e frequências</span>
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-foreground/8 text-[12px] text-foreground/50 font-medium">
+              Acesso aos alunos atribuídos a você, com todo o histórico de aulas de cada um.
+            </div>
+          </div>
+
+          <!-- Painel 3: Aluno -->
+          <div data-role-pane="aluno" role="tabpanel" class="clean-card p-5 sm:p-6 space-y-4 hidden">
+            <div class="flex items-center justify-between pb-3 border-b border-foreground/8">
+              <div>
+                <h3 class="font-heading font-black text-[18px] text-foreground">Aluno</h3>
+                <p class="text-[12px] font-semibold text-foreground/60">Acompanhamento dos estudos</p>
+              </div>
+              <span class="inline-flex items-center rounded-full bg-primary/10 text-primary px-3 py-1 text-[11px] font-bold uppercase tracking-wider font-heading">
+                Consulta Pessoal
+              </span>
+            </div>
+
+            <div class="space-y-3 pt-1">
+              <div class="flex items-start gap-3">
+                <span class="text-success font-black text-base shrink-0 mt-0.5">✓</span>
+                <span class="text-[14px] text-foreground font-semibold">Consultar a próxima lição dos métodos</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-success font-black text-base shrink-0 mt-0.5">✓</span>
+                <span class="text-[14px] text-foreground font-semibold">Acompanhar histórico de aulas e frequências</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-success font-black text-base shrink-0 mt-0.5">✓</span>
+                <span class="text-[14px] text-foreground font-semibold">Visualizar porcentagem de progresso nos métodos</span>
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-foreground/8 text-[12px] text-foreground/50 font-medium">
+              Consulta individual protegida. O aluno não tem acesso aos dados de outros alunos.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         NO CELULAR: DIRETO & SIMPLES
+         ========================================== -->
+    <section id="no-celular" class="py-20 md:py-28 max-w-7xl mx-auto px-6 fade-in-section">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-7 space-y-6">
+          <div class="text-[11px] font-bold font-heading uppercase tracking-[0.2em] text-primary/70">
+            Instalar
+          </div>
+
+          <h2 class="text-[32px] sm:text-[44px] font-heading font-black text-foreground leading-tight">
+            Funciona no seu celular
+          </h2>
+
+          <p class="text-[17px] text-foreground/75 font-semibold leading-relaxed">
+            O GEM+ abre direto no navegador do celular. Basta adicionar à tela inicial: é leve e não ocupa a memória do aparelho.
+          </p>
+
+          <div class="space-y-3.5 pt-1">
+            <div class="p-4 rounded-2xl bg-card border border-foreground/8 space-y-1">
+              <div class="font-heading font-bold text-foreground text-[15px]">No Android (Google Chrome):</div>
+              <p class="text-[14px] text-foreground/70 font-semibold">
+                Acesse <strong>app.gemplus.app</strong> e toque no aviso <em>“Adicionar à tela inicial”</em>.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-card border border-foreground/8 space-y-1">
+              <div class="font-heading font-bold text-foreground text-[15px]">No iPhone (Safari):</div>
+              <p class="text-[14px] text-foreground/70 font-semibold">
+                Acesse <strong>app.gemplus.app</strong>, toque em Compartilhar e escolha <em>“Adicionar à Tela de Início”</em>.
+              </p>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <a href="https://app.gemplus.app" target="_blank" rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 rounded-full font-heading text-[14px] font-bold h-12 px-7 bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm transition-all">
+              <span>Sou testador</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 flex flex-col items-center justify-center">
+          <div class="android-device">
+            <div class="android-btn-vol"></div>
+            <div class="android-btn-power"></div>
+
+            <div class="android-screen">
+              <div class="android-status-bar">
+                <span class="android-time">19:30</span>
+                <div class="android-camera-dot"></div>
+                <div class="android-status-icons">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.53 16.11a6 6 0 016.95 0M4.93 12.5a10 10 0 0114.14 0M1.34 8.89a14 14 0 0121.32 0M12 20h.01" />
+                  </svg>
+                  <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="2" y="16" width="3" height="5" rx="0.5"/>
+                    <rect x="7" y="12" width="3" height="9" rx="0.5"/>
+                    <rect x="12" y="8" width="3" height="13" rx="0.5"/>
+                    <rect x="17" y="4" width="3" height="17" rx="0.5"/>
+                  </svg>
+                  <div class="flex items-center gap-1">
+                    <span class="text-[10px] font-bold">85%</span>
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="2" y="7" width="16" height="10" rx="2" />
+                      <path d="M18 11v2" />
+                      <rect x="4" y="9" width="10" height="6" fill="currentColor" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Viewport do App GEM+ com Menus Superior e Inferior Travados -->
+              <div class="android-app-viewport dark-theme">
+                <!-- Menu Superior do App (Fixo / Travado) -->
+                <div class="android-app-header">
+                  <picture>
+                    <source srcset="assets/images/phone3-app-header.webp" type="image/webp">
+                    <img src="assets/images/phone3-app-header.png" alt="Menu superior GEM+ - Lucas" loading="eager" decoding="async" width="300" height="42">
+                  </picture>
+                </div>
+
+                <!-- Conteúdo Central Rolável (Somente o meio rola) -->
+                <div class="android-app-body" title="Role para ver os dois gráficos">
+                  <picture>
+                    <source srcset="assets/images/phone3-app-body.webp" type="image/webp">
+                    <img src="assets/images/phone3-app-body.png" alt="Aviso de adicionar à tela inicial e gráficos de acompanhamento" loading="eager" decoding="async" width="300" height="731">
+                  </picture>
+                </div>
+
+                <!-- Menu Inferior do App (Fixo / Travado com Botão Redondo Flutuante Intacto) -->
+                <div class="android-app-footer has-floating-fab">
+                  <picture>
+                    <source srcset="assets/images/phone3-app-footer.webp" type="image/webp">
+                    <img src="assets/images/phone3-app-footer.png" alt="Menu inferior do aplicativo GEM+ com botão redondo de aula intacto" loading="eager" decoding="async" width="300" height="71">
+                  </picture>
+                </div>
+              </div>
+
+              <div class="android-nav-bar">
+                <div class="android-nav-btn" title="Aplicativos recentes">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <line x1="7" y1="5" x2="7" y2="19" />
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="17" y1="5" x2="17" y2="19" />
+                  </svg>
+                </div>
+                <div class="android-nav-btn" title="Tela inicial">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <rect x="4.5" y="4.5" width="15" height="15" rx="4" />
+                  </svg>
+                </div>
+                <div class="android-nav-btn" title="Voltar">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 19l-7-7 7-7" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Dica de rolagem sutil -->
+          <div class="mt-3.5 flex items-center justify-center gap-1.5 text-xs text-foreground/50 font-medium select-none">
+            <svg class="w-3.5 h-3.5 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 5v14M19 12l-7 7-7-7"/>
+            </svg>
+            <span>Role dentro do celular para ver os dois gráficos</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         A HISTÓRIA: FERNANDO RIBEIRO & ORIGEM
+         ========================================== -->
+    <section id="origem" class="py-20 md:py-28 border-t border-foreground/8 bg-card/30 fade-in-section">
+      <div class="max-w-4xl mx-auto px-6">
+        
+        <div class="flex flex-col md:flex-row gap-10 items-center md:items-start text-center md:text-left">
+          
+          <figure class="founder-portrait-frame shrink-0" aria-label="Retrato de Fernando Ribeiro">
+            <picture>
+              <source srcset="assets/brand/fernandocelo.webp" type="image/webp">
+              <img src="assets/brand/fernandocelo-fallback.jpg" alt="Retrato de Fernando Ribeiro" width="200" height="200" class="founder-portrait" loading="eager" decoding="async">
+            </picture>
+          </figure>
+
+          <div class="space-y-4">
+            <div class="text-[11px] font-bold font-heading uppercase tracking-[0.2em] text-primary/70">
+              História
+            </div>
+
+            <h2 class="text-[28px] sm:text-[36px] font-heading font-black text-foreground leading-tight">
+              Nasceu da rotina que eu vivi de perto.
+            </h2>
+
+            <div class="space-y-3 text-[16px] text-foreground/80 font-semibold leading-relaxed">
+              <p>
+                Como músico e desenvolvedor, vivi anos a rotina dos estudos musicais e orquestras. Vi de perto a imensa dedicação de instrutores, mas também o problema de fichas complicadas e do histórico esquecido a cada troca de instrutor.
+              </p>
+              <p>
+                Quem ensina como voluntário se dispôs a ensinar, não a preencher papel. Criei o GEM+ para que o registro fique com a ferramenta e o tempo da aula volte para o aluno: menos burocracia e mais dedicação ao ensino.
+              </p>
+            </div>
+
+            <div class="pt-2">
+              <div class="font-heading font-black text-[20px] text-foreground">Fernando Ribeiro</div>
+              <div class="text-[12px] font-bold uppercase tracking-[0.18em] text-primary/70">Idealizador do GEM+ · Músico e Desenvolvedor</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="mt-12 pt-6 border-t border-foreground/8 text-[12px] text-foreground/60 font-semibold text-center">
+          <em>Nota de respeito e transparência:</em> O GEM+ é uma iniciativa independente e voluntária de apoio aos estudos musicais. Não se trata de publicação oficial institucional.
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         PERGUNTAS FREQUENTES (FAQ DIRETO)
+         ========================================== -->
+    <section id="faq" class="py-20 md:py-28 max-w-4xl mx-auto px-6 fade-in-section">
+      <div class="text-center mb-12 space-y-2">
+        <div class="text-[11px] font-bold font-heading uppercase tracking-[0.2em] text-primary/70">
+          Dúvidas
+        </div>
+        <h2 class="text-[32px] sm:text-[40px] font-heading font-black text-foreground">
+          Dúvidas comuns sobre o GEM+
+        </h2>
+      </div>
+
+      <div class="space-y-3.5">
+
+        <details class="clean-card p-5">
+          <summary class="flex justify-between items-center gap-4 font-heading font-bold text-[16px] cursor-pointer list-none hover:text-primary transition-colors">
+            <span>O que é o acesso antecipado?</span>
+            <span class="transition-transform opacity-60 shrink-0">
+              <svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </summary>
+          <p class="text-foreground/75 font-semibold mt-2.5 text-[14px] leading-relaxed">
+            Antes do lançamento, um grupo restrito está testando o GEM+ no dia a dia das aulas. Os testadores entram com uma senha própria. Se você não tem senha, entre na <a href="#lista" class="text-primary font-bold underline">lista de espera</a>: avisaremos assim que o acesso for liberado para todos.
+          </p>
+        </details>
+
+        <details class="clean-card p-5">
+          <summary class="flex justify-between items-center gap-4 font-heading font-bold text-[16px] cursor-pointer list-none hover:text-primary transition-colors">
+            <span>Eu ensino, como faço para começar?</span>
+            <span class="transition-transform opacity-60 shrink-0">
+              <svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </summary>
+          <p class="text-foreground/75 font-semibold mt-2.5 text-[14px] leading-relaxed">
+            Entre na <a href="#lista" class="text-primary font-bold underline">lista de espera</a>. Quando o acesso for liberado, você cria sua conta, cadastra a congregação e gera códigos de convite com validade de 7 dias para instrutores e alunos.
+          </p>
+        </details>
+
+        <details class="clean-card p-5">
+          <summary class="flex justify-between items-center gap-4 font-heading font-bold text-[16px] cursor-pointer list-none hover:text-primary transition-colors">
+            <span>Sou aluno, como faço para começar?</span>
+            <span class="transition-transform opacity-60 shrink-0">
+              <svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </summary>
+          <p class="text-foreground/75 font-semibold mt-2.5 text-[14px] leading-relaxed">
+            Entre na <a href="#lista" class="text-primary font-bold underline">lista de espera</a>. Quando o acesso for liberado, você instala o app, cria sua conta e insere o código de convite que o seu instrutor enviar.
+          </p>
+        </details>
+
+        <details class="clean-card p-5">
+          <summary class="flex justify-between items-center gap-4 font-heading font-bold text-[16px] cursor-pointer list-none hover:text-primary transition-colors">
+            <span>E se o instrutor atuar em mais de uma congregação?</span>
+            <span class="transition-transform opacity-60 shrink-0">
+              <svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </summary>
+          <p class="text-foreground/75 font-semibold mt-2.5 text-[14px] leading-relaxed">
+            O aplicativo suporta múltiplos vínculos. Com a mesma conta, o instrutor alterna facilmente entre as congregações em que atua.
+          </p>
+        </details>
+
+        <details class="clean-card p-5">
+          <summary class="flex justify-between items-center gap-4 font-heading font-bold text-[16px] cursor-pointer list-none hover:text-primary transition-colors">
+            <span>Preciso baixar nas lojas Google Play ou App Store?</span>
+            <span class="transition-transform opacity-60 shrink-0">
+              <svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </summary>
+          <p class="text-foreground/75 font-semibold mt-2.5 text-[14px] leading-relaxed">
+            Não. O GEM+ abre no navegador do celular e pode ser adicionado à tela inicial. O ícone fica no aparelho como um aplicativo normal.
+          </p>
+        </details>
+
+        <details class="clean-card p-5">
+          <summary class="flex justify-between items-center gap-4 font-heading font-bold text-[16px] cursor-pointer list-none hover:text-primary transition-colors">
+            <span>Quanto custa o GEM+?</span>
+            <span class="transition-transform opacity-60 shrink-0">
+              <svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </summary>
+          <p class="text-foreground/75 font-semibold mt-2.5 text-[14px] leading-relaxed">
+            É 100% gratuito. Não cobra mensalidade, não pede cartão de crédito e não possui planos pagos.
+          </p>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         LISTA DE ESPERA (CTA DE FECHAMENTO)
+         ========================================== -->
+    <section id="lista" class="py-20 md:py-24 px-6 max-w-7xl mx-auto fade-in-section scroll-mt-24">
+      <div class="rounded-3xl bg-foreground text-background p-8 sm:p-10 md:p-14 text-center shadow-xl">
+        <div class="max-w-xl mx-auto space-y-5">
+          <h2 class="text-[32px] sm:text-[42px] font-heading font-black leading-tight">
+            Pronto para organizar suas aulas?
+          </h2>
+
+          <p class="text-[17px] text-background/80 font-medium leading-relaxed">
+            O GEM+ está em testes com um grupo restrito. Entre na lista de espera e avisaremos quando o acesso for liberado.
+          </p>
+
+          <form id="waitlist-form" class="pt-2 space-y-3 text-left" novalidate
+            data-endpoint="https://n8n.srv849507.hstgr.cloud/webhook/gemplus-interesse">
+            <!-- Honeypot anti-spam invisível -->
+            <div class="hidden" aria-hidden="true">
+              <label>Deixe este campo vazio: <input name="website" tabindex="-1" autocomplete="off"></label>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-3">
+              <div>
+                <label for="waitlist-name" class="sr-only">Seu nome</label>
+                <input id="waitlist-name" name="nome" type="text" placeholder="Seu nome" required autocomplete="name"
+                  class="w-full h-12 rounded-full px-5 bg-background text-foreground placeholder:text-foreground/50 font-semibold text-[14px] outline-none focus:ring-2 focus:ring-warning/60">
+              </div>
+              <div>
+                <label for="waitlist-email" class="sr-only">Seu e-mail</label>
+                <input id="waitlist-email" name="email" type="email" placeholder="Seu e-mail" required autocomplete="email"
+                  class="w-full h-12 rounded-full px-5 bg-background text-foreground placeholder:text-foreground/50 font-semibold text-[14px] outline-none focus:ring-2 focus:ring-warning/60">
+              </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-3">
+              <div class="relative">
+                <label for="waitlist-profile" class="sr-only">Seu perfil</label>
+                <select id="waitlist-profile" name="profile" required
+                  class="w-full h-12 rounded-full pl-5 pr-10 bg-background text-foreground font-semibold text-[14px] outline-none appearance-none cursor-pointer focus:ring-2 focus:ring-warning/60">
+                  <option value="" disabled selected>Seu perfil</option>
+                  <option value="gestor">Sou encarregado</option>
+                  <option value="instrutor">Sou instrutor</option>
+                  <option value="aluno">Sou aluno</option>
+                </select>
+                <svg class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/60" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+              <button type="submit"
+                class="w-full h-12 rounded-full font-heading text-[14px] font-bold bg-background text-foreground hover:bg-background/90 shadow-md transition-all active:scale-95 disabled:opacity-60 disabled:cursor-wait">
+                Entrar na lista
+              </button>
+            </div>
+
+            <p id="form-error" class="hidden text-center text-[13px] font-semibold text-background/85" role="alert"></p>
+          </form>
+
+          <div id="form-status" class="hidden pt-2 space-y-1" role="status" aria-live="polite">
+            <h3 id="form-status-title" class="font-heading font-black text-[20px]"></h3>
+            <p id="form-status-text" class="text-[15px] text-background/80 font-medium"></p>
+          </div>
+
+          <div class="pt-2 text-[13px] text-background/70 font-semibold">
+            Já é testador? <a href="https://app.gemplus.app" target="_blank" rel="noopener noreferrer" class="text-background underline font-bold">Entrar com senha</a>
+          </div>
+
+          <div class="text-[12px] text-background/60 font-semibold">
+            Sem custo · Brasil e Portugal · Seu e-mail só será usado para avisar do lançamento
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================
+       RODAPÉ
+       ========================================== -->
+  <footer class="bg-primary text-primary-foreground py-14 border-t border-primary-foreground/10">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="flex flex-col md:flex-row justify-between items-center gap-8 pb-10 border-b border-primary-foreground/10">
+        
+        <!-- Logo GEM+ no Rodapé -->
+        <a href="#topo" class="flex items-center gap-4 hover:opacity-85 transition-opacity" aria-label="Voltar ao topo">
+          <picture>
+            <source srcset="assets/brand/logo.webp" type="image/webp">
+            <img src="assets/brand/logo-fallback.png" alt="Logo GEM+" width="50" height="50" class="w-[50px] h-[50px] object-contain shrink-0">
+          </picture>
+          <div class="flex flex-col text-left justify-center">
+            <span class="text-[30px] font-heading font-black tracking-tight leading-none whitespace-nowrap">GEM+</span>
+            <span class="text-[11px] font-bold uppercase tracking-[0.16em] text-primary-foreground/70 leading-tight whitespace-nowrap mt-1.5">Gestão do Ensino Musical</span>
+          </div>
+        </a>
+
+        <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[12px] font-bold uppercase tracking-wider text-primary-foreground/80">
+          <a href="#recursos" class="hover:text-primary-foreground transition-colors">Recursos</a>
+          <a href="#como-funciona" class="hover:text-primary-foreground transition-colors">Rotina</a>
+          <a href="#matriz-acessos" class="hover:text-primary-foreground transition-colors">Perfis</a>
+          <a href="#no-celular" class="hover:text-primary-foreground transition-colors">Instalar</a>
+          <a href="#origem" class="hover:text-primary-foreground transition-colors">História</a>
+          <a href="#faq" class="hover:text-primary-foreground transition-colors">Dúvidas</a>
+          <a href="#lista" class="text-warning hover:underline">Lista de espera</a>
+          <a href="https://app.gemplus.app" target="_blank" rel="noopener noreferrer" class="hover:text-primary-foreground transition-colors">Testadores</a>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-[12px] font-semibold text-primary-foreground/60 text-center md:text-left">
+        <div>
+          © 2026 GEM+ · Gestão do Ensino Musical. Feito com dedicação para quem ensina música.
+        </div>
+        <div>
+          Iniciativa independente voluntária
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="main.js?v=ea2"></script>
+</body>
+
+</html>

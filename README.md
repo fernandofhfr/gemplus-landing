@@ -1,5 +1,12 @@
 # Landing Page GEM+
 
+> **Versões neste repositório**
+> - `landing-v2-acesso-antecipado/` — **em produção** em gemplus.app (fase de testes, com lista de espera). CSS: `npm run build:antecipado`.
+> - `landing-v2/` — versão do lançamento oficial, guardada. CSS: `npm run build:v2`.
+> - Raiz — V1 de pré-lançamento (histórico, fora do ar).
+>
+> Como publicar: veja `DEPLOY-CHECKLIST.md`.
+
 Página de apresentação do produto GEM+ — plataforma de gestão musical para igrejas e congregações.
 
 ## Estrutura do projeto

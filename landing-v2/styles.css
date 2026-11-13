@@ -1,0 +1,485 @@
+:root {
+  --background: 248 244 237; /* #f8f4ed - Champagne Silk */
+  --foreground: 33 40 66;    /* #212842 - Midnight Indigo */
+  --card: 238 234 227;       /* Suave e orgânico */
+  --card-foreground: 33 40 66;
+  --primary: 33 40 66;
+  --primary-foreground: 248 244 237;
+  --success: 16 185 129;     /* #10b981 */
+  --error: 239 68 68;        /* #ef4444 */
+  --warning: 217 119 6;      /* #d97706 - Ocre nobre */
+  --muted: 226 221 213;
+  --muted-foreground: 85 93 125;
+}
+
+.dark {
+  --background: 33 40 66;    /* #212842 */
+  --foreground: 248 244 237; /* #f8f4ed */
+  --card: 40 48 78;          /* #28304e */
+  --card-foreground: 248 244 237;
+  --primary: 248 244 237;
+  --primary-foreground: 33 40 66;
+  --muted: 47 57 90;
+  --muted-foreground: 215 220 235;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(var(--background));
+  color: rgb(var(--foreground));
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  overflow-x: hidden;
+  line-height: 1.65;
+}
+
+.font-heading {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Header & Glassmorphism */
+.glass {
+  background: rgba(var(--background) / 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(var(--foreground) / 0.06);
+}
+
+.dark .glass {
+  background: rgba(var(--background) / 0.88);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Card Limpo Editorial */
+.clean-card {
+  background: rgb(var(--card));
+  border: 1px solid rgba(var(--foreground) / 0.08);
+  border-radius: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dark .clean-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.clean-card:hover {
+  border-color: rgba(var(--foreground) / 0.16);
+}
+
+/* ==========================================================================
+   SIMULAÇÃO DE SMARTPHONE ANDROID AUTÊNTICO (PROPORÇÃO PERFEITA 100% VISÍVEL)
+   - Moldura de aparelho Android limpo
+   - Botões físicos no lado direito (Volume e Liga/Desliga)
+   - Barra de status superior fina em Azul Midnight Indigo (#212842)
+     com horário (19:30), Wi-Fi, sinal de celular e bateria 85%
+   - Área central com a imagem integral (SEM CORTAR NENHUM BOTÃO DO APP)
+   - Barra de navegação inferior Android com os 3 botões clássicos
+     posicionada exatamente ABAIXO do aplicativo, sem cobrir nada
+   ========================================================================== */
+.android-device {
+  position: relative;
+  width: 100%;
+  max-width: 316px;
+  margin: 0 auto;
+  background: #1b2230;
+  border-radius: 36px;
+  padding: 8px;
+  box-sizing: border-box;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.14),
+    0 25px 60px -15px rgba(15, 23, 42, 0.3),
+    0 10px 20px -5px rgba(0, 0, 0, 0.15);
+  user-select: none;
+  transform: translateZ(0) scale(1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow;
+}
+
+.android-device:hover,
+.android-device.is-interacting {
+  transform: translateZ(0) scale(1.035) translateY(-4px);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.24),
+    0 40px 90px -15px rgba(15, 23, 42, 0.45),
+    0 18px 36px -5px rgba(0, 0, 0, 0.22),
+    0 0 50px -5px rgba(33, 40, 66, 0.16);
+  z-index: 20;
+}
+
+.dark .android-device {
+  background: #10141f;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.09),
+    0 30px 75px -20px rgba(0, 0, 0, 0.75),
+    0 12px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+.dark .android-device:hover,
+.dark .android-device.is-interacting {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.18),
+    0 48px 110px -20px rgba(0, 0, 0, 0.95),
+    0 24px 44px -5px rgba(0, 0, 0, 0.65),
+    0 0 60px rgba(248, 244, 237, 0.08);
+}
+
+/* Botões físicos laterais do Android (lado direito) */
+.android-btn-vol {
+  position: absolute;
+  right: -3px;
+  top: 110px;
+  width: 4px;
+  height: 58px;
+  background: #2e384c;
+  border-radius: 2px;
+}
+
+.android-btn-power {
+  position: absolute;
+  right: -3px;
+  top: 185px;
+  width: 4px;
+  height: 36px;
+  background: #2e384c;
+  border-radius: 2px;
+}
+
+/* Tela do Android (comporta perfeitamente topo, app e barra inferior sem cortes) */
+.android-screen {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 28px;
+  overflow: hidden;
+  background: #212842;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+/* 1. Barra de Status Superior (Azul Escuro Midnight Indigo) */
+.android-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #212842;
+  color: #f8f4ed;
+  height: 24px;
+  padding: 0 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  z-index: 10;
+}
+
+.android-time {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #f8f4ed;
+}
+
+/* Câmera Frontal (Pequeno ponto discreto) */
+.android-camera-dot {
+  width: 7px;
+  height: 7px;
+  background: #090c12;
+  border-radius: 50%;
+  box-shadow: inset 0 0 1px rgba(56, 189, 248, 0.7);
+}
+
+.android-status-icons {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #f8f4ed;
+}
+
+/* 2. Área do Aplicativo: Menu Superior Fixo, Conteúdo Rolável e Menu Inferior Fixo */
+.android-app-viewport {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 616px;
+  position: relative;
+  background: #f8f4ed;
+  overflow: hidden;
+}
+
+.android-app-viewport.dark-theme {
+  background: #212842;
+}
+
+/* 2.1 Menu Superior do App (Travado no topo) */
+.android-app-header {
+  flex-shrink: 0;
+  width: 100%;
+  line-height: 0;
+  position: relative;
+  z-index: 10;
+  background: #f8f4ed;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.android-app-viewport.dark-theme .android-app-header {
+  background: #212842;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.android-app-header img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.android-app-header picture,
+.android-app-body picture,
+.android-app-footer picture {
+  display: block;
+  width: 100%;
+}
+
+/* 2.2 Área Central do Conteúdo (Somente esta área possui rolagem) */
+.android-app-body,
+.android-content-area {
+  flex: 1 1 0%;
+  width: 100%;
+  position: relative;
+  background: #f8f4ed;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+  cursor: grab;
+  user-select: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.android-app-viewport.dark-theme .android-app-body {
+  background: #212842;
+}
+
+.android-app-body:active,
+.android-content-area:active {
+  cursor: grabbing;
+}
+
+/* Scrollbar fina e moderna estilo smartphone */
+.android-app-body::-webkit-scrollbar,
+.android-content-area::-webkit-scrollbar {
+  width: 4px;
+}
+
+.android-app-body::-webkit-scrollbar-track,
+.android-content-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.android-app-body::-webkit-scrollbar-thumb,
+.android-content-area::-webkit-scrollbar-thumb {
+  background: rgba(33, 40, 66, 0.25);
+  border-radius: 4px;
+}
+
+.android-app-body:hover::-webkit-scrollbar-thumb,
+.android-content-area:hover::-webkit-scrollbar-thumb {
+  background: rgba(33, 40, 66, 0.45);
+}
+
+.android-app-viewport.dark-theme .android-app-body::-webkit-scrollbar-thumb,
+.android-content-area.dark-theme::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.android-app-viewport.dark-theme .android-app-body:hover::-webkit-scrollbar-thumb,
+.android-content-area.dark-theme:hover::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.android-app-body img,
+.android-content-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  min-height: 100%;
+  pointer-events: none;
+}
+
+/* 2.3 Menu Inferior do App (Travado no rodapé) */
+.android-app-footer {
+  flex-shrink: 0;
+  width: 100%;
+  line-height: 0;
+  position: relative;
+  z-index: 10;
+  background: #f8f4ed;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.android-app-viewport.dark-theme .android-app-footer {
+  background: #212842;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Suporte para o botão redondo flutuante (+ Aula) na Tela 3:
+   Permite que o botão redondo projete 16.5px para cima sobre o conteúdo sem ser cortado,
+   enquanto as laterais permanecem transparentes permitindo ver o conteúdo rolando por trás. */
+.android-app-footer.has-floating-fab {
+  margin-top: -16.5px;
+  background: transparent !important;
+  border-top: none !important;
+  pointer-events: none;
+}
+
+.android-app-footer img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 3. Barra de Navegação Inferior (3 Botões Android posicionados abaixo do app) */
+.android-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #212842;
+  color: rgba(248, 244, 237, 0.85);
+  height: 36px;
+  padding: 0 24px;
+  flex-shrink: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  z-index: 10;
+}
+
+.android-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 100%;
+  color: rgba(248, 244, 237, 0.82);
+  transition: color 0.15s ease, transform 0.15s ease;
+  cursor: pointer;
+}
+
+.android-nav-btn:hover {
+  color: #ffffff;
+  transform: scale(1.08);
+}
+
+/* Revelação ao rolar */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Founder Portrait */
+.founder-portrait-frame {
+  position: relative;
+  width: 10.5rem;
+  height: 10.5rem;
+  flex: 0 0 auto;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 1px solid rgba(var(--primary) / 0.15);
+  background:
+    radial-gradient(circle at 30% 25%, rgba(var(--warning) / 0.16), transparent 42%),
+    linear-gradient(160deg, rgba(var(--card) / 0.94), rgba(var(--background) / 0.96));
+  box-shadow: 0 16px 36px -20px rgba(0, 0, 0, 0.25);
+}
+
+.founder-portrait {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.02);
+  transform-origin: 15% 8%;
+  transform: scale(1.18);
+  transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+.founder-portrait-frame:hover .founder-portrait {
+  filter: grayscale(0) contrast(1.04) saturate(1.02);
+  transform: scale(1.22);
+}
+
+/* Oculta o subtítulo do logo apenas em telas ultra-estreitas (< 360px) */
+@media (max-width: 359px) {
+  .logo-subtext {
+    display: none;
+  }
+}
+
+/* FAQ Details */
+details[open] summary ~ * {
+  animation: slideDown 0.25s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tabela de Permissões */
+.table-matrix th,
+.table-matrix td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(var(--foreground) / 0.08);
+}
+
+.dark .table-matrix th,
+.dark .table-matrix td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Transição suave para abas de perfis mobile */
+[data-role-pane]:not(.hidden) {
+  animation: fadeInPane 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeInPane {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .fade-in-section,
+  .founder-portrait,
+  details[open] summary ~ *,
+  [data-role-pane],
+  .android-device,
+  .android-device:hover,
+  .android-device.is-interacting {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

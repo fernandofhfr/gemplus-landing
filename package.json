@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "build:css": "tailwindcss -i src/input.css -o dist/tailwind.css --minify",
-    "watch:css": "tailwindcss -i src/input.css -o dist/tailwind.css --watch"
+    "watch:css": "tailwindcss -i src/input.css -o dist/tailwind.css --watch",
+    "build:v2": "tailwindcss -c landing-v2/tailwind.config.js -i landing-v2/src/input.css -o landing-v2/dist/tailwind.css --minify",
+    "watch:v2": "tailwindcss -c landing-v2/tailwind.config.js -i landing-v2/src/input.css -o landing-v2/dist/tailwind.css --watch",
+    "build:antecipado": "tailwindcss -c landing-v2-acesso-antecipado/tailwind.config.js -i landing-v2-acesso-antecipado/src/input.css -o landing-v2-acesso-antecipado/dist/tailwind.css --minify",
+    "watch:antecipado": "tailwindcss -c landing-v2-acesso-antecipado/tailwind.config.js -i landing-v2-acesso-antecipado/src/input.css -o landing-v2-acesso-antecipado/dist/tailwind.css --watch"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.17"
